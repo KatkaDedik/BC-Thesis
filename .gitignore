@@ -1,0 +1,31 @@
+*
+!*/
+
+# git
+!.gitignore
+!.gitattributes
+
+# text
+!*.md
+!*.json
+!*.meta
+!*.mat
+!*.preset
+!*.unity
+!*.cs
+!*.asset
+!*.txt
+!*.ad
+!*.shadergraph
+!*.prefab
+
+# blobs
+!*.png
+!*.gif
+
+# models
+!*.blend
+!*.fbx
+
+# unity stuff
+Library/
