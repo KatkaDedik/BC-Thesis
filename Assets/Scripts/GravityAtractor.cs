@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,35 +17,41 @@ namespace Assets.Scripts
         public bool freezeX = false;
         public bool freezeY = false;
         public bool freezeZ = false;
-        
+        public Transform center = null;
+
 
         public void Attract(Transform body)
         {
+
+            Vector3 gravityUp;
             
-            Vector3 gravityUp = -(body.position - transform.position);
-
-            if (freezeX)
-            {
-                gravityUp.x = 0;
-            }
-            if (freezeY)
-            {
-                gravityUp.y = 0;
-            }
-            if (freezeZ)
-            {
-                gravityUp.z = 0;
-            }
-
-            gravityUp.Normalize();
             if (isFloor)
             {
                 gravityUp = GravityOrientation;
             }
+            else
+            {
+                gravityUp = -(body.position - center.position);
+                if (freezeX)
+                {
+                    gravityUp.x = 0;
+                }
+                if (freezeY)
+                {
+                    gravityUp.y = 0;
+                }
+                if (freezeZ)
+                {
+                    gravityUp.z = 0;
+                }
+            }
+
+            gravityUp.Normalize();
             Vector3 bodyUp = body.up;
 
-            Quaternion targetRotation = Quaternion.FromToRotation(bodyUp, gravityUp) * body.rotation;
-            body.rotation = Quaternion.Slerp(body.rotation, targetRotation, 50 * Time.deltaTime);
+            //Quaternion targetRotation = Quaternion.FromToRotation(bodyUp, gravityUp) * body.rotation;
+            //body.rotation = Quaternion.Slerp(body.rotation, targetRotation, 50 * Time.deltaTime);
+            body.rotation = Quaternion.FromToRotation(bodyUp, gravityUp) * body.rotation;
         }
 
     }

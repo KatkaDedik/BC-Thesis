@@ -68,7 +68,7 @@ public class VRController : MonoBehaviour
     private void CalculateMovement()
     {
         //Figure out movement orientation
-        Vector3 orientationEuler = new Vector3(0.0f, Head.eulerAngles.y, 0.0f);
+        Vector3 orientationEuler = new Vector3(0.0f, Head.localEulerAngles.y, 0.0f);
         Quaternion orientation = Quaternion.Euler(orientationEuler);
 
         //if not moving
@@ -103,7 +103,7 @@ public class VRController : MonoBehaviour
         
 
         //Apply
-        character.transform.position += (movement * Time.deltaTime);
+        character.transform.position += (character.transform.rotation * movement * Time.deltaTime);
     }
 
     private void SnapRotation()
