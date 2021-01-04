@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR;
-
+using Valve.VR.InteractionSystem;
 
 public class VRController : MonoBehaviour
 {
-    public float gravity = 30.0f;
+    public float gravity = 9.81f;
     public float Sensitivity = 0.1f;
     public float MaxSpeed = 1.0f;
     public float rotateIncrement = 90;
@@ -18,7 +18,7 @@ public class VRController : MonoBehaviour
 
     private float speed = 0.0f;
 
-    private CharacterController character = null;
+    private CapsuleCollider character = null;
     public Transform CameraRig = null;
     public Transform Head = null;
 
@@ -26,13 +26,14 @@ public class VRController : MonoBehaviour
     private Vector3 movement;
 
     public Transform groundCheck;
-    public float groundDistance = 0.4f;
+    public float groundDistance = 0.01f;
     public LayerMask groundMask;
+    
 
 
     private void Awake()
     {
-        character = GetComponent<CharacterController>();
+        character = GetComponent<CapsuleCollider>();
     }
 
     private void Update()
@@ -60,11 +61,14 @@ public class VRController : MonoBehaviour
 
         //Apply
         character.center = newCenter;
+
+        newCenter.y = groundCheck.localPosition.y;
+        groundCheck.localPosition = newCenter;
     }
     private void CalculateMovement()
     {
         //Figure out movement orientation
-        Vector3 orientationEuler = new Vector3(0, Head.eulerAngles.y, 0);
+        Vector3 orientationEuler = new Vector3(0.0f, Head.eulerAngles.y, 0.0f);
         Quaternion orientation = Quaternion.Euler(orientationEuler);
 
         //if not moving
@@ -99,7 +103,7 @@ public class VRController : MonoBehaviour
         
 
         //Apply
-        character.Move(movement * Time.deltaTime);
+        character.transform.position += (movement * Time.deltaTime);
     }
 
     private void SnapRotation()

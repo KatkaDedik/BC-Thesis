@@ -43,10 +43,6 @@ namespace Assets.Scripts
             }
             Vector3 bodyUp = body.up;
 
-            Rigidbody rb = body.GetComponent<Rigidbody>();
-
-            rb.AddForce(gravityUp * GravityForce);
-
             Quaternion targetRotation = Quaternion.FromToRotation(bodyUp, gravityUp) * body.rotation;
             body.rotation = Quaternion.Slerp(body.rotation, targetRotation, 50 * Time.deltaTime);
         }

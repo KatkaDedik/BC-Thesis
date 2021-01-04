@@ -16,7 +16,7 @@ public class GravityTrigger : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
+        if(other.tag == "GroundCheck")
         {
             player.GetComponent<BodyGravity>().atractor = GetComponent<GravityAtractor>();
         }
