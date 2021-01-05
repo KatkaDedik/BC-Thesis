@@ -7,9 +7,10 @@ public class BodyGravity : MonoBehaviour
 {
 
     public GravityAtractor atractor;
+    public Transform groundCheck;
 
     void Update()
     {
-        atractor.Attract(transform);
+        atractor.Attract(transform, groundCheck);
     }
 }

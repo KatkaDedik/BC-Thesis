@@ -20,7 +20,7 @@ namespace Assets.Scripts
         public Transform center = null;
 
 
-        public void Attract(Transform body)
+        public void Attract(Transform body, Transform groundCheck)
         {
 
             Vector3 gravityUp;
@@ -31,7 +31,7 @@ namespace Assets.Scripts
             }
             else
             {
-                gravityUp = -(body.position - center.position);
+                gravityUp = -(groundCheck.position -  center.position);
                 if (freezeX)
                 {
                     gravityUp.x = 0;
