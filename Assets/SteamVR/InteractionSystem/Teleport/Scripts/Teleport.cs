@@ -149,12 +149,8 @@ namespace Valve.VR.InteractionSystem
 			pointerLineRenderer = GetComponentInChildren<LineRenderer>();
 			teleportPointerObject = pointerLineRenderer.gameObject;
 
-#if UNITY_URP
-			fullTintAlpha = 0.5f;
-#else
-			int tintColorID = Shader.PropertyToID("_TintColor");
-			fullTintAlpha = pointVisibleMaterial.GetColor(tintColorID).a;
-#endif
+			int tintColorID = Shader.PropertyToID( "_TintColor" );
+			fullTintAlpha = pointVisibleMaterial.GetColor( tintColorID ).a;
 
 			teleportArc = GetComponent<TeleportArc>();
 			teleportArc.traceLayerMask = traceLayerMask;
@@ -181,7 +177,7 @@ namespace Valve.VR.InteractionSystem
 
 			if ( player == null )
 			{
-				Debug.LogError("<b>[SteamVR Interaction]</b> Teleport: No Player instance found in map.", this);
+				Debug.LogError("<b>[SteamVR Interaction]</b> Teleport: No Player instance found in map.");
 				Destroy( this.gameObject );
 				return;
 			}
@@ -328,7 +324,7 @@ namespace Valve.VR.InteractionSystem
 			float dotUp = Vector3.Dot( pointerDir, Vector3.up );
 			float dotForward = Vector3.Dot( pointerDir, player.hmdTransform.forward );
 			bool pointerAtBadAngle = false;
-			if ( ( dotForward > 0 && dotUp > 0.75f ) || ( dotForward < 0.0f && dotUp > 0.5f ) )
+			if ( ( dotForward > 0 && dotUp > 2f ) || ( dotForward < 0.0f && dotUp > 0.5f ) )
 			{
 				pointerAtBadAngle = true;
 			}

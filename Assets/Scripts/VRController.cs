@@ -18,7 +18,7 @@ public class VRController : MonoBehaviour
 
     private float speed = 0.0f;
 
-    private CapsuleCollider character = null;
+    private CharacterController character = null;
     public Transform CameraRig = null;
     public Transform Head = null;
 
@@ -28,12 +28,13 @@ public class VRController : MonoBehaviour
     public Transform groundCheck;
     public float groundDistance = 0.01f;
     public LayerMask groundMask;
-    
+    public LayerMask undergroundMask;
+
 
 
     private void Awake()
     {
-        character = GetComponent<CapsuleCollider>();
+        character = GetComponent<CharacterController>();
     }
 
     private void Update()
@@ -98,12 +99,20 @@ public class VRController : MonoBehaviour
         }
         else
         {
-            movement.y = 0;
+            if (Physics.CheckSphere(groundCheck.position, groundDistance -0.1f , groundMask))
+            {
+                movement.y = 0.1f;
+            }
+            else
+            {
+                movement.y = 0;
+            }
+            
+            
         }
-        
 
         //Apply
-        character.transform.position += (character.transform.rotation * movement * Time.deltaTime);
+        character.Move(character.transform.rotation * movement * Time.deltaTime);
     }
 
     private void SnapRotation()

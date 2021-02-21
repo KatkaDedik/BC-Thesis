@@ -6,6 +6,7 @@ using UnityEngine;
 public class GravityTrigger : MonoBehaviour
 {
 
+    public GravityAtractor atractor;
     private GameObject player;
 
     // Start is called before the first frame update
@@ -14,11 +15,11 @@ public class GravityTrigger : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
         if(other.tag == "GroundCheck")
         {
-            player.GetComponent<BodyGravity>().atractor = GetComponent<GravityAtractor>();
+            player.GetComponent<BodyGravity>().atractor = atractor;
         }
     }
 }

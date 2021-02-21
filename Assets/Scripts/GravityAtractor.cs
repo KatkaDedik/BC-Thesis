@@ -20,11 +20,12 @@ namespace Assets.Scripts
         public Transform center = null;
 
 
-        public void Attract(Transform body, Transform groundCheck)
+        public void Attract(Transform cameraRig, Transform groundCheck)
         {
 
             Vector3 gravityUp;
-            
+            Vector3 moveCameraRig = groundCheck.localPosition;
+
             if (isFloor)
             {
                 gravityUp = GravityOrientation;
@@ -47,11 +48,18 @@ namespace Assets.Scripts
             }
 
             gravityUp.Normalize();
-            Vector3 bodyUp = body.up;
+            Vector3 bodyUp = cameraRig.up;
 
             //Quaternion targetRotation = Quaternion.FromToRotation(bodyUp, gravityUp) * body.rotation;
             //body.rotation = Quaternion.Slerp(body.rotation, targetRotation, 50 * Time.deltaTime);
-            body.rotation = Quaternion.FromToRotation(bodyUp, gravityUp) * body.rotation;
+            cameraRig.rotation = Quaternion.FromToRotation(bodyUp, gravityUp) * cameraRig.rotation;
+            if (!isFloor)
+            {
+                //cameraRig.position += moveCameraRig;
+
+                //cameraRig.position -= Quaternion.FromToRotation(bodyUp, gravityUp) * moveCameraRig;
+            }
+            
         }
 
     }

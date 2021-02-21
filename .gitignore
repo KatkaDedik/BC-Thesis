@@ -29,3 +29,8 @@
 
 # unity stuff
 Library/
+
+# SteamVR
+!Assets/SteamVR/**/*
+!Assets/SteamVR_Input/**/*
+!Assets/SteamVR_Resources/**/*
