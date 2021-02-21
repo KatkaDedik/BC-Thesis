@@ -17,8 +17,8 @@ TagManager:
   - Walk Able
   - Underground
   - Player
-  - 
-  - 
+  - GravityTrigger
+  - GroundCheck
   - 
   - 
   - 

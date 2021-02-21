@@ -22,4 +22,12 @@ public class GravityTrigger : MonoBehaviour
             player.GetComponent<BodyGravity>().atractor = atractor;
         }
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "GroundCheck")
+        {
+            player.GetComponent<BodyGravity>().atractor = atractor;
+        }
+    }
 }
