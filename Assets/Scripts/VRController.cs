@@ -119,6 +119,5 @@ public class VRController : MonoBehaviour
     {
         float snapValue = 0.0f;
         transform.RotateAround(Head.position, Vector3.up, snapValue);
-
     }
 }
