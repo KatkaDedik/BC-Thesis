@@ -12,6 +12,7 @@ namespace Assets.Scripts
     public class GravityAtractor : MonoBehaviour
     {
         public bool isFloor = true;
+        public bool isReverse = false;
         public float GravityForce = -9.81f;
         public Vector3 GravityOrientation;
         public bool freezeX = false;
@@ -31,8 +32,14 @@ namespace Assets.Scripts
                 gravityUp = GravityOrientation;
             }
             else
-            {
+            {   
                 gravityUp = -(groundCheck.position -  center.position);
+
+                if (isReverse)
+                {
+                    gravityUp *= -1;
+                }
+
                 if (freezeX)
                 {
                     gravityUp.x = 0;
@@ -45,21 +52,13 @@ namespace Assets.Scripts
                 {
                     gravityUp.z = 0;
                 }
+                
             }
 
             gravityUp.Normalize();
             Vector3 bodyUp = cameraRig.up;
 
-            //Quaternion targetRotation = Quaternion.FromToRotation(bodyUp, gravityUp) * body.rotation;
-            //body.rotation = Quaternion.Slerp(body.rotation, targetRotation, 50 * Time.deltaTime);
             cameraRig.rotation = Quaternion.FromToRotation(bodyUp, gravityUp) * cameraRig.rotation;
-            if (!isFloor)
-            {
-                //cameraRig.position += moveCameraRig;
-
-                //cameraRig.position -= Quaternion.FromToRotation(bodyUp, gravityUp) * moveCameraRig;
-            }
-            
         }
 
     }

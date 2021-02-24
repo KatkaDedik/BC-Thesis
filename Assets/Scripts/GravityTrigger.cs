@@ -9,15 +9,10 @@ public class GravityTrigger : MonoBehaviour
     public GravityAtractor atractor;
     private GameObject player;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        player = GameObject.FindGameObjectWithTag("Player");
-    }
-
     void OnTriggerStay(Collider other)
     {
-        if(other.tag == "GroundCheck")
+        player = GameObject.FindGameObjectWithTag("Player");
+        if (other.tag == "GroundCheck")
         {
             player.GetComponent<BodyGravity>().atractor = atractor;
         }
@@ -25,6 +20,7 @@ public class GravityTrigger : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         if (other.tag == "GroundCheck")
         {
             player.GetComponent<BodyGravity>().atractor = atractor;
