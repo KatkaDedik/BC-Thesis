@@ -11,6 +11,6 @@ public class BodyGravity : MonoBehaviour
 
     void Update()
     {
-        atractor.Attract(transform, groundCheck);
+        transform.rotation = atractor.Attract(transform, groundCheck);
     }
 }

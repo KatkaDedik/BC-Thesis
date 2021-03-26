@@ -107,8 +107,6 @@ public class VRController : MonoBehaviour
             {
                 movement.y = 0;
             }
-            
-            
         }
 
         //Apply

@@ -21,11 +21,10 @@ namespace Assets.Scripts
         public Transform center = null;
 
 
-        public void Attract(Transform cameraRig, Transform groundCheck)
+        public Quaternion Attract(Transform player, Transform groundCheck)
         {
 
             Vector3 gravityUp;
-            Vector3 moveCameraRig = groundCheck.localPosition;
 
             if (isFloor)
             {
@@ -56,9 +55,9 @@ namespace Assets.Scripts
             }
 
             gravityUp.Normalize();
-            Vector3 bodyUp = cameraRig.up;
+            Vector3 bodyUp = player.up;
 
-            cameraRig.rotation = Quaternion.FromToRotation(bodyUp, gravityUp) * cameraRig.rotation;
+            return Quaternion.FromToRotation(bodyUp, gravityUp) * player.rotation;
         }
 
     }
