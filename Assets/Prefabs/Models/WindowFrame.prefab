@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8394792972193506727}
   - component: {fileID: 598564626222317820}
   - component: {fileID: 6730581695661826737}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Frame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,8 @@ GameObject:
   - component: {fileID: 5610383897638776159}
   - component: {fileID: 7411757364209675597}
   - component: {fileID: 6944966134085673050}
-  m_Layer: 0
+  - component: {fileID: 5831450883467953040}
+  m_Layer: 8
   m_Name: WindowFrame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -161,6 +162,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &5831450883467953040
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3046148414977812892}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.40708855, y: 4, z: 3}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7812506484481582208
 GameObject:
   m_ObjectHideFlags: 0
@@ -171,7 +185,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2348120248301348039}
   - component: {fileID: 8752267772959680353}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Area Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -265,7 +279,7 @@ GameObject:
   - component: {fileID: 2329777941861017356}
   - component: {fileID: 606555079873529498}
   - component: {fileID: 2344831387448328803}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

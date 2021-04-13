@@ -101,7 +101,7 @@ public class VRController : MonoBehaviour
         {
             if (Physics.CheckSphere(groundCheck.position, groundDistance -0.1f , groundMask))
             {
-                movement.y = 0.1f;
+                movement.y = 0.3f;
             }
             else
             {
