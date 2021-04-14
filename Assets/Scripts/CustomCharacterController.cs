@@ -14,15 +14,17 @@ public class CustomCharacterController : MonoBehaviour
     public float Radius = 0.2f;
     public float Height = 2f;
     public float gravity = 2.5f;
+    public LayerMask WalkableLayer;
     public LayerMask PlayerLayer;
     public bool Smooth;
     public float SmoothSpeed = 1f;
+    public Vector3 Move { get; set; }
+
+    public bool debugRay = false;
 
     private SphereCollider sphereCollider;
     private CapsuleCollider capsuleCollider;
     private Vector3 velocity;
-    private Vector3 move;
-    private Vector3 vel;
 
     private void Start()
     {
@@ -30,41 +32,52 @@ public class CustomCharacterController : MonoBehaviour
         sphereCollider = GetComponent<SphereCollider>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         Gravity();
         FinalMove();
         GroundChecking();
+
+        if (debugRay)
+        {
+            Debug.DrawRay(transform.TransformPoint(liftPoint), downDirection, Color.magenta);
+        }
     }
+
 
     public void UpdateCollider()
     {
         capsuleCollider.center = Center;
         capsuleCollider.height = Height;
         capsuleCollider.radius = Radius;
+        liftPoint = new Vector3(Center.x, Center.y + Height/2 , Center.z);
+        GroundCheck = new Vector3(Center.x, Center.y - Height / 2, Center.z);
     }
 
     #region Movement Methods
-    public void Move(Vector3 motion)
-    {
-        move = motion;
-    }
 
     private void FinalMove()
     {
-        velocity = new Vector3(move.x, -currentGravity, move.z) + vel;
-        velocity = transform.TransformDirection(velocity);
-        transform.position += velocity * Time.deltaTime;
-        vel = Vector3.zero;
+        //velocity = new Vector3(Move.x, -currentGravity, Move.z);
+        //velocity = transform.TransformDirection(velocity);
+
+        Move += downDirection.normalized * currentGravity * Time.fixedDeltaTime;
+
+        transform.position += Move;
     }
     #endregion
 
+
+
     #region Gravity methods
     private bool grounded;
-    private float currentGravity = 0f;
-    private Vector3 liftPoint = new Vector3(0, 1.2f, 0);
+    public float currentGravity = 0f;
+    private Vector3 liftPoint;
     private RaycastHit groundHit;
-    private Vector3 GroundCheck = new Vector3(0, 0.85f, 0);
+    private Vector3 GroundCheck;
+    private Ray ray;
+    private Vector3 downDirection;
+
     private void Gravity()
     {
         if (!grounded)
@@ -79,23 +92,23 @@ public class CustomCharacterController : MonoBehaviour
 
     private void GroundChecking()
     {
-        Ray ray = new Ray(transform.TransformPoint(liftPoint), Vector3.down);
-        RaycastHit tempHit = new RaycastHit();
+        downDirection = transform.TransformPoint(GroundCheck) - transform.TransformPoint(liftPoint);
+        ray = new Ray(transform.TransformPoint(liftPoint), downDirection);
 
-        if (Physics.SphereCast(ray, 0.17f, out tempHit, 20, ~PlayerLayer))
+        if (Physics.SphereCast(ray, 0.05f, out var tempHit, downDirection.magnitude + 0.05f, WalkableLayer))
         {
             ConfirmGround(tempHit);
         }
         else
         {
-            grounded = (Physics.SphereCast(ray, 0.17f, out tempHit, 20, ~PlayerLayer);
+            grounded = false;
         }
     }
 
     private void ConfirmGround(RaycastHit tempHit)
     {
-        Collider[] col = new Collider[3];
-        int num = Physics.OverlapSphereNonAlloc(transform.TransformPoint(GroundCheck), 0.5f, col, PlayerLayer);
+        Collider[] col = new Collider[6];
+        int num = Physics.OverlapSphereNonAlloc(transform.TransformPoint(GroundCheck), 0.5f, col, WalkableLayer);
 
         grounded = false;
 
@@ -106,27 +119,27 @@ public class CustomCharacterController : MonoBehaviour
                 groundHit = tempHit;
                 grounded = true;
 
-                Vector3 destination = new Vector3(transform.position.x, (groundHit.point.y + Height / 2f), transform.position.z);
+                //Vector3 destination = new Vector3(transform.position.x, (groundHit.point.y + Height / 2f), transform.position.z);
+                Vector3 Translate =  (downDirection * -1).normalized * (downDirection.magnitude - (groundHit.point - transform.TransformPoint(liftPoint)).magnitude);
 
                 if (!Smooth)
                 {
-                    transform.position = destination;
+                    transform.position += Translate;
                 }
                 else
                 {
-                    transform.position = Vector3.Lerp(transform.position, destination, SmoothSpeed * Time.deltaTime);
+                    transform.position = Vector3.Lerp(transform.position, Translate, SmoothSpeed * Time.deltaTime);
                 }
                 break;
             }
         }
 
-        if(num <= 1 && tempHit.distance <= 3f)
+        if (num <= 1 && tempHit.distance <= 3f)
         {
             if (col[0] != null)
             {
-                Ray ray = new Ray(transform.TransformPoint(liftPoint), Vector3.down);
                 RaycastHit hit;
-                if(Physics.Raycast(ray, out hit, 3f, PlayerLayer))
+                if(Physics.Raycast(ray, out hit, 2f, ~PlayerLayer))
                 { 
                     if (hit.transform != col[0].transform)
                     {
@@ -139,8 +152,9 @@ public class CustomCharacterController : MonoBehaviour
     }
     #endregion
 
-    #region Collision Checking
 
+
+    #region Collision Checking
     private void CollisionCheck()
     {
         Collider[] overlaps = new Collider[5];
@@ -148,7 +162,7 @@ public class CustomCharacterController : MonoBehaviour
             (
             transform.TransformPoint(sphereCollider.center), 
             sphereCollider.radius, 
-            overlaps, PlayerLayer, 
+            overlaps, ~PlayerLayer, 
             QueryTriggerInteraction.UseGlobal
             );
         
@@ -168,6 +182,5 @@ public class CustomCharacterController : MonoBehaviour
             }
         }
     }
-
     #endregion
 }

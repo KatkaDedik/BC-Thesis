@@ -18,50 +18,44 @@ public class VRController : MonoBehaviour
 
     private float speed = 0.0f;
 
-    private CharacterController character = null;
+    private CustomCharacterController character = null;
     public Transform CameraRig = null;
     public Transform Head = null;
 
-    private bool isGrounded;
     private Vector3 movement;
 
     public Transform groundCheck;
-    public float groundDistance = 0.01f;
-    public LayerMask groundMask;
-    public LayerMask undergroundMask;
 
 
 
     private void Awake()
     {
-        character = GetComponent<CharacterController>();
+        character = GetComponent<CustomCharacterController>();
     }
 
     private void Update()
     {
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-
         HandleHeight();
         CalculateMovement();
-        SnapRotation();
     }
 
     private void HandleHeight()
     {
         //Get the head in local space
         float headHeight = Mathf.Clamp(Head.localPosition.y, 0.3f, 2.2f);
-        character.height = headHeight;
+        character.Height = headHeight;
 
         // Cut in half
         Vector3 newCenter = Vector3.zero;
-        newCenter.y = character.height / 2;
+        newCenter.y = character.Height / 2;
 
         //Move capsule in local space
         newCenter.x = Head.localPosition.x;
         newCenter.z = Head.localPosition.z;
 
         //Apply
-        character.center = newCenter;
+        character.Center = newCenter;
+        character.UpdateCollider();
 
         newCenter.y = groundCheck.localPosition.y;
         groundCheck.localPosition = newCenter;
@@ -78,8 +72,7 @@ public class VRController : MonoBehaviour
             speed = 0;
         }
 
-        movement.x = 0;
-        movement.z = 0;
+        movement = Vector3.zero;
 
         //if button pressed
         if (MovePress.state)
@@ -89,33 +82,12 @@ public class VRController : MonoBehaviour
             speed = Mathf.Clamp(speed, -MaxSpeed, MaxSpeed);
 
             //Orientation
-            movement += orientation * (speed * Vector3.forward);
+            movement = orientation * (speed * Vector3.forward);
         }
-        
-        if (!isGrounded)
-        {
-            // Grativy
-            movement.y += gravity * Time.deltaTime;
-        }
-        else
-        {
-            if (Physics.CheckSphere(groundCheck.position, groundDistance -0.1f , groundMask))
-            {
-                movement.y = 0.3f;
-            }
-            else
-            {
-                movement.y = 0;
-            }
-        }
+
+        var debug = movement * Time.deltaTime;
 
         //Apply
-        character.Move(character.transform.rotation * movement * Time.deltaTime);
-    }
-
-    private void SnapRotation()
-    {
-        float snapValue = 0.0f;
-        transform.RotateAround(Head.position, Vector3.up, snapValue);
+        character.Move = transform.rotation * debug;
     }
 }
