@@ -101,7 +101,7 @@ public class Teleporter : MonoBehaviour
         }
 
         Player.transform.position = Vector3.Lerp(startPosition, endPosition, teleportTimer);
-        Player.transform.rotation = Quaternion.Slerp(startQuaternion, endQuaternion, teleportTimer * distance - 0.5f);
+        Player.transform.rotation = Quaternion.Slerp(startQuaternion, endQuaternion, teleportTimer - 1 / distance);
     }
 
     private IEnumerator FleshTeleportPlayer(Vector3 translation)
@@ -115,6 +115,7 @@ public class Teleporter : MonoBehaviour
         //Apply translation
         yield return new WaitForSeconds(fadeTime);
         Player.transform.position += translation;
+        area.ChangeAtractor(Player);
 
         // Fade to clear
         SteamVR_Fade.Start(Color.clear, fadeTime, true);
