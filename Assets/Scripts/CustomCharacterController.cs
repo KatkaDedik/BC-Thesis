@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CapsuleCollider))]
-[RequireComponent(typeof(SphereCollider))]
 public class CustomCharacterController : MonoBehaviour
 {
-    public float SlopeLimit = 45f;
     public float StepOffset = 0.3f;
     public float SkinWidth = 0.08f;
     public float MinMoveDistance = 0.001f;
@@ -22,14 +20,11 @@ public class CustomCharacterController : MonoBehaviour
 
     public bool debugRay = false;
 
-    private SphereCollider sphereCollider;
     private CapsuleCollider capsuleCollider;
-    private Vector3 velocity;
 
     private void Start()
     {
         capsuleCollider = GetComponent<CapsuleCollider>();
-        sphereCollider = GetComponent<SphereCollider>();
     }
 
     private void FixedUpdate()
@@ -37,6 +32,7 @@ public class CustomCharacterController : MonoBehaviour
         Gravity();
         FinalMove();
         GroundChecking();
+        CollisionCheck();
 
         if (debugRay)
         {
@@ -158,27 +154,29 @@ public class CustomCharacterController : MonoBehaviour
     private void CollisionCheck()
     {
         Collider[] overlaps = new Collider[5];
-        int num = Physics.OverlapSphereNonAlloc
-            (
-            transform.TransformPoint(sphereCollider.center), 
-            sphereCollider.radius, 
-            overlaps, ~PlayerLayer, 
-            QueryTriggerInteraction.UseGlobal
-            );
+        int num = Physics.OverlapCapsuleNonAlloc(
+            transform.TransformPoint(capsuleCollider.center + (Height / 2) * transform.up),
+            transform.TransformPoint(capsuleCollider.center + (Height / 2 - StepOffset) * -transform.up),
+            Radius,
+            overlaps,
+            ~PlayerLayer,
+            QueryTriggerInteraction.UseGlobal);
         
         for (int i = 0; i < num; i++)
         {
+            if (overlaps[i].isTrigger)
+            {
+                continue;
+            }
             Transform t = overlaps[i].transform;
             Vector3 direction;
             float distance;
 
-            if (Physics.ComputePenetration(sphereCollider, transform.position, transform.rotation, 
+            if (Physics.ComputePenetration(capsuleCollider, transform.position, transform.rotation, 
                 overlaps[i], t.position, t.rotation, out direction, out distance))
             {
                 Vector3 penetrationVector = direction * distance;
-                //Vector3 velocityProjected = Vector3.Project(velocity, -direction);
                 transform.position += penetrationVector;
-                //vel -= velocityProjected;
             }
         }
     }
