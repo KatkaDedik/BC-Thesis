@@ -54,6 +54,38 @@ public class Teleporter : MonoBehaviour
         }
     }
 
+    private bool UpdatePointer()
+    {
+        if (!TeleportAction.GetState(pose.inputSource) && !TeleportAction.GetStateUp(pose.inputSource))
+        {
+            Pointer.SetActive(false);
+            return false;
+        }
+
+        // Ray from the controller
+        Ray ray = new Ray(transform.position, transform.forward);
+        // if it is a hit
+        if (Physics.Raycast(ray,out var hit, TeleportMask))
+        {
+
+            Pointer.SetActive(true);
+            Pointer.transform.position = hit.point;
+            area = hit.collider.GetComponent<TeleportArea>();
+
+            if (area == null)
+            {
+                Pointer.GetComponent<MeshRenderer>().material = onMissMaterial;
+                return false;
+            }
+            Pointer.GetComponent<MeshRenderer>().material = onHitMaterial;
+            return true;
+        }
+
+        //if not a hit
+        Pointer.SetActive(false);
+        return false;
+    }
+
     private void TryTeleport()
     {
         //Check for valid position, and if already teleporting;
@@ -101,7 +133,9 @@ public class Teleporter : MonoBehaviour
             teleportTimer = 0f;
             isTeleporting = false;
             Player.GetComponent<BodyGravity>().enabled = true;
+            Player.GetComponent<CharacterController>().currentGravity = 0f;
             area.ChangeAtractor(Player);
+            Player.transform.position = endPosition;
             return;
         }
 
@@ -129,37 +163,5 @@ public class Teleporter : MonoBehaviour
         isTeleporting = false;
     }
 
-    private bool UpdatePointer()
-    {
-        if (!TeleportAction.GetState(pose.inputSource) && !TeleportAction.GetStateUp(pose.inputSource))
-        {
-            Pointer.SetActive(false);
-            return false;
-        }
 
-        // Ray from the controller
-        Ray ray = new Ray(transform.position, transform.forward);
-        RaycastHit hit;
-
-        // if it is a hit
-        if (Physics.Raycast(ray, out hit, TeleportMask))
-        {
-            Pointer.transform.position = hit.point;
-            area = hit.collider.GetComponent<TeleportArea>();
-
-            if(area == null)
-            {
-                Pointer.GetComponent<MeshRenderer>().material = onMissMaterial;
-                Pointer.SetActive(true);
-                return false;
-            }
-            Pointer.GetComponent<MeshRenderer>().material = onHitMaterial;
-            Pointer.SetActive(true);
-            return true;
-        }
-
-        //if not a hit
-        Pointer.SetActive(false);
-        return false;
-    }
 }

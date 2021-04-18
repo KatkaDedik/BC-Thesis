@@ -29,14 +29,12 @@ public class CharacterController : MonoBehaviour
 
     private void Update()
     {
+        HandleHeight();
         MovePlayer();
     }
 
     private void FixedUpdate()
     {
-        HandleHeight();
-        Gravity();
-        transform.position += Move * Time.fixedDeltaTime;
         if (CheckIfGrounded)
         {
             GroundChecking();
@@ -45,6 +43,9 @@ public class CharacterController : MonoBehaviour
         {
             grounded = false;
         }
+        Gravity();
+        transform.position += Move * Time.fixedDeltaTime;
+        
         CollisionCheck();
     }
 
@@ -84,6 +85,7 @@ public class CharacterController : MonoBehaviour
 
     private void MovePlayer()
     {
+        Move = Vector3.zero;
 
         //Handle Joystick movement
         if (JoystickMovePress.state)
@@ -92,7 +94,6 @@ public class CharacterController : MonoBehaviour
         }
         else if (JoystickMovePress.GetStateUp(SteamVR_Input_Sources.Any))
         {
-            Move = Vector3.zero;
             speed = 0;
         }
 
@@ -140,7 +141,7 @@ public class CharacterController : MonoBehaviour
         }
     }
 
-    private void GroundChecking()
+    public void GroundChecking()
     {
         downDirection = transform.TransformPoint(GroundCheck) - transform.TransformPoint(liftPoint);
         ray = new Ray(transform.TransformPoint(liftPoint), downDirection);
@@ -181,7 +182,7 @@ public class CharacterController : MonoBehaviour
             if (col[0] != null)
             {
                 RaycastHit hit;
-                if(Physics.Raycast(ray, out hit, 2f, ~PlayerLayer))
+                if(Physics.Raycast(ray, out hit, 2f, WalkableLayer))
                 { 
                     if (hit.transform != col[0].transform)
                     {
