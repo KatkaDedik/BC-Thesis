@@ -12,9 +12,9 @@ public class Teleporter : MonoBehaviour
     public Transform GroundCheck;
     public LayerMask TeleportMask;
     public bool SmoothTeleport = false;
-    public float Speed = 5f;
     public Material onHitMaterial;
     public Material onMissMaterial;
+    public float Gravity = 9.82f;
 
     private SteamVR_Behaviour_Pose pose = null;
     private bool pointerHasPosition = false;
@@ -28,7 +28,8 @@ public class Teleporter : MonoBehaviour
     private Quaternion startQuaternion;
     private Quaternion endQuaternion;
     private float distance = 1f;
-
+    private float angleDistance;
+    private float speed = 0f;
     private void Awake()
     {
         pose = GetComponent<SteamVR_Behaviour_Pose>();
@@ -42,7 +43,7 @@ public class Teleporter : MonoBehaviour
 
         if (SmoothTeleport && isTeleporting)
         {
-            SmoothTeleportPlayer(distance);
+            SmoothTeleportPlayer();
             return;
         }
 
@@ -70,7 +71,8 @@ public class Teleporter : MonoBehaviour
             distance = translateVector.magnitude;
             SetStartEndTransform();
             Player.GetComponent<BodyGravity>().enabled = false;
-            SmoothTeleportPlayer(distance);
+            angleDistance = Quaternion.Angle(startQuaternion, endQuaternion);
+            SmoothTeleportPlayer();
         }
         else
         {
@@ -87,12 +89,15 @@ public class Teleporter : MonoBehaviour
         isTeleporting = true;
     }
 
-    private void SmoothTeleportPlayer(float distance)
+    private void SmoothTeleportPlayer()
     {
-        teleportTimer += Speed * Time.deltaTime / distance;
+        teleportTimer += Time.deltaTime;
+        speed += Gravity * Time.deltaTime;
+        speed = Mathf.Clamp(speed, 0, 15);
 
-        if (teleportTimer > 1) 
+        if (speed * teleportTimer / distance > 1) 
         {
+            speed = 0;
             teleportTimer = 0f;
             isTeleporting = false;
             Player.GetComponent<BodyGravity>().enabled = true;
@@ -100,8 +105,8 @@ public class Teleporter : MonoBehaviour
             return;
         }
 
-        Player.transform.position = Vector3.Lerp(startPosition, endPosition, teleportTimer);
-        Player.transform.rotation = Quaternion.Slerp(startQuaternion, endQuaternion, teleportTimer - 1 / distance);
+        Player.transform.position = Vector3.Lerp(startPosition, endPosition, speed * teleportTimer / distance);
+        Player.transform.rotation = Quaternion.Slerp(startQuaternion, endQuaternion, 200 * teleportTimer / angleDistance - 0.15f);
     }
 
     private IEnumerator FleshTeleportPlayer(Vector3 translation)
