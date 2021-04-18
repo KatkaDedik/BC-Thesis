@@ -10,7 +10,7 @@ public class Teleporter : MonoBehaviour
     public GameObject Pointer;
     public SteamVR_Action_Boolean TeleportAction;
     public Transform GroundCheck;
-    public LayerMask TeleportMask;
+    public LayerMask IgnoreMask;
     public bool SmoothTeleport = false;
     public Material onHitMaterial;
     public Material onMissMaterial;
@@ -65,7 +65,7 @@ public class Teleporter : MonoBehaviour
         // Ray from the controller
         Ray ray = new Ray(transform.position, transform.forward);
         // if it is a hit
-        if (Physics.Raycast(ray,out var hit, TeleportMask))
+        if (Physics.Raycast(ray,out var hit, 42, ~IgnoreMask))
         {
 
             Pointer.SetActive(true);

@@ -15,7 +15,7 @@ public class FlyMovement : MonoBehaviour
     public Transform Head;
     public float MaxSpeed = 8;
 
-    private float speed = 5f;
+    private float speed = 0f;
     private CharacterController character;
     private bool isFlying = false;
     private BodyGravity bodyGravity;
@@ -35,7 +35,7 @@ public class FlyMovement : MonoBehaviour
         HandleCharacterController();
         if (isFlying)
         {
-            character.Move = direction * Time.deltaTime * speed;
+            transform.position += direction * Time.deltaTime * speed;
         }
     }
 
@@ -66,7 +66,7 @@ public class FlyMovement : MonoBehaviour
     {
         if(SpeedAction.axis > 0)
         {
-            speed += (SpeedAction.axis / 100 ) * Time.deltaTime ;
+            speed += (SpeedAction.axis) * Time.deltaTime ;
         }
         else
         {
