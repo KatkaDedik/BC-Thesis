@@ -4,7 +4,7 @@ using UnityEngine;
 using Valve.VR;
 using Assets.Scripts;
 
-public class Teleporter : MonoBehaviour
+public class TeleportMovement : MonoBehaviour
 {
     public GameObject Player;
     public GameObject Pointer;
@@ -133,7 +133,7 @@ public class Teleporter : MonoBehaviour
             teleportTimer = 0f;
             isTeleporting = false;
             Player.GetComponent<BodyGravity>().enabled = true;
-            Player.GetComponent<CharacterController>().currentGravity = 0f;
+            Player.GetComponent<VRCharacterController>().currentGravity = 0f;
             area.ChangeAtractor(Player);
             Player.transform.position = endPosition;
             return;

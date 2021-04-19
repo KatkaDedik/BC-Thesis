@@ -1,12 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Valve.VR;
-using Valve.VR.InteractionSystem;
 
 [RequireComponent(typeof(CapsuleCollider))]
-[RequireComponent(typeof(JoystickMovement))]
-public class CharacterController : MonoBehaviour
+public class VRCharacterController : MonoBehaviour
 {
     public float StepOffset = 0.3f;
     public float SkinWidth = 0.08f;
@@ -16,48 +13,50 @@ public class CharacterController : MonoBehaviour
     public bool CheckIfGrounded = true;
     public Transform Head = null;
     public Transform groundCheck = null;
-    public Vector3 Move { get; set; }
 
+    private Vector3 move;
     private CapsuleCollider capsuleCollider;
-    private FlyMovement flying;
 
     private void Start()
     {
         capsuleCollider = GetComponent<CapsuleCollider>();
-        flying = GetComponent<FlyMovement>();
     }
 
     private void Update()
     {
         HandleHeight();
-        MovePlayer();
-    }
-
-    private void FixedUpdate()
-    {
+        MovePlayer(downDirection * currentGravity * Time.deltaTime);
+        transform.position += move;
+        CollisionCheck();
         if (CheckIfGrounded)
         {
-            GroundChecking();
+            grounded = IsGrounded();
         }
         else
         {
             grounded = false;
         }
-        Gravity();
-        transform.position += Move * Time.fixedDeltaTime;
-        
-        CollisionCheck();
+    }
+
+    private void FixedUpdate()
+    {
+        ApplyGravity();
+    }
+
+    private void LateUpdate()
+    { 
+        move = Vector3.zero;
     }
 
     private void HandleHeight()
     {
         //Get the head in local space
         float headHeight = Mathf.Clamp(Head.localPosition.y, 0.3f, 2.2f);
-        capsuleCollider.height = headHeight;
+        capsuleCollider.height = headHeight + 0.2f;
 
         // Cut in half
         Vector3 newCenter = Vector3.zero;
-        newCenter.y = headHeight / 2;
+        newCenter.y = capsuleCollider.height / 2;
 
         //Move capsule in local space
         newCenter.x = Head.localPosition.x;
@@ -73,55 +72,14 @@ public class CharacterController : MonoBehaviour
         groundCheck.localPosition = newCenter;
     }
 
-    #region Movement Methods
-
-
-    public SteamVR_Action_Boolean JoystickMovePress = null;
-    public SteamVR_Action_Vector2 JoystickMoveValue = null;
-
-    public float Sensitivity = 0.1f;
-    public float MaxSpeed = 1.0f;
-    private float speed = 0.0f;
-
-    private void MovePlayer()
+    public void MovePlayer(Vector3 moveBy)
     {
-        Move = Vector3.zero;
-
-        //Handle Joystick movement
-        if (JoystickMovePress.state)
-        {
-            Move = CalculateJoystickMovement();
-        }
-        else if (JoystickMovePress.GetStateUp(SteamVR_Input_Sources.Any))
-        {
-            speed = 0;
-        }
-
-        Move += downDirection.normalized * currentGravity;
+        move += moveBy;
     }
-
-    public Vector3 CalculateJoystickMovement()
-    {
-        //Figure out movement orientation
-        Vector3 orientationEuler = new Vector3(0.0f, Head.localEulerAngles.y, 0.0f);
-        Quaternion orientation = Quaternion.Euler(orientationEuler);
-
-        var movement = Vector3.zero;
-
-        //Add, clamp
-        speed += JoystickMoveValue.axis.y * Sensitivity;
-        speed = Mathf.Clamp(speed, -MaxSpeed, MaxSpeed);
-
-        //Orientation
-        movement = orientation * (speed * Vector3.forward);
-
-        return transform.rotation * movement;
-    }
-
-    #endregion
 
     #region Gravity methods
-    private bool grounded;
+    [HideInInspector]
+    public bool grounded;
     public float currentGravity { get; set; }
     private Vector3 liftPoint;
     private RaycastHit groundHit;
@@ -129,7 +87,7 @@ public class CharacterController : MonoBehaviour
     private Ray ray;
     private Vector3 downDirection;
 
-    private void Gravity()
+    private void ApplyGravity()
     {
         if (!grounded)
         {
@@ -141,34 +99,34 @@ public class CharacterController : MonoBehaviour
         }
     }
 
-    public void GroundChecking()
+    public bool IsGrounded()
     {
         downDirection = transform.TransformPoint(GroundCheck) - transform.TransformPoint(liftPoint);
         ray = new Ray(transform.TransformPoint(liftPoint), downDirection);
 
         if (Physics.SphereCast(ray, 0.05f, out var tempHit, downDirection.magnitude + 0.05f, WalkableLayer))
         {
-            ConfirmGround(tempHit);
+            return IsGroundHit(tempHit);
         }
         else
         {
-            grounded = false;
+            return false;
         }
     }
 
-    private void ConfirmGround(RaycastHit tempHit)
+    private bool IsGroundHit(RaycastHit tempHit)
     {
         Collider[] col = new Collider[6];
         int num = Physics.OverlapSphereNonAlloc(transform.TransformPoint(GroundCheck), 0.5f, col, WalkableLayer);
 
-        grounded = false;
+        var ret = false;
 
         for (int i = 0; i < num; i++)
         {
             if (col[i].transform == tempHit.transform)
             {
                 groundHit = tempHit;
-                grounded = true;
+                ret = true;
 
                 Vector3 Translate =  (downDirection * -1).normalized * (downDirection.magnitude - (groundHit.point - transform.TransformPoint(liftPoint)).magnitude);
 
@@ -186,12 +144,13 @@ public class CharacterController : MonoBehaviour
                 { 
                     if (hit.transform != col[0].transform)
                     {
-                        grounded = false;
-                        return;
+                        ret = false;
+                        return ret;
                     }
                 }
             }
         }
+        return ret;
     }
     #endregion
 
@@ -200,7 +159,7 @@ public class CharacterController : MonoBehaviour
     {
         Collider[] overlaps = new Collider[5];
         int num = Physics.OverlapCapsuleNonAlloc(
-            transform.TransformPoint(capsuleCollider.center + (capsuleCollider.height / 2) * transform.up),
+            transform.TransformPoint(capsuleCollider.center + (0.5f + capsuleCollider.height / 2) * transform.up),
             transform.TransformPoint(capsuleCollider.center + (capsuleCollider.height / 2 - StepOffset) * -transform.up),
             capsuleCollider.radius,
             overlaps,

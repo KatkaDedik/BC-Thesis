@@ -4,6 +4,7 @@ using UnityEngine;
 using Valve.VR;
 using Assets.Scripts;
 
+[RequireComponent(typeof(VRCharacterController))]
 public class FlyMovement : MonoBehaviour
 {
 
@@ -12,69 +13,71 @@ public class FlyMovement : MonoBehaviour
 
     public Transform LeftHand;
     public Transform RightHand;
-    public Transform Head;
-    public float MaxSpeed = 8;
+    public float MaxSpeed = 10f;
+    public float Speed = 10f;
+    public float MinDeceleration = 1f;
 
-    private float speed = 0f;
-    private CharacterController character;
+    private float currentRightPower = 0f;
+    private float currentLeftPower = 0f;
+    private VRCharacterController controller;
     private bool isFlying = false;
     private BodyGravity bodyGravity;
     private Vector3 direction;
     private Vector3 leftDirection = Vector3.zero;
     private Vector3 rightDirection = Vector3.zero;
+    private float deceleration;
+
     void Start()
     {
-        character = GetComponent<CharacterController>();
+        controller = GetComponent<VRCharacterController>();
         bodyGravity = GetComponent<BodyGravity>();
+        deceleration = Mathf.Clamp(controller.gravity, MinDeceleration, 20f);
     }
 
-    void FixedUpdate()
+    private void Update()
     {
         SetDirection();
-        SetSpeed();
         HandleCharacterController();
-        if (isFlying)
-        {
-            transform.position += direction * Time.deltaTime * speed;
-        }
+        controller.MovePlayer(direction * Time.deltaTime);
     }
 
     private void SetDirection()
     {
-
+        var shoulders = transform.TransformPoint(controller.Head.localPosition.x, controller.Head.localPosition.y - 0.15f, controller.Head.localPosition.z);
         if (FlyPress.GetState(SteamVR_Input_Sources.LeftHand))
         {
-            leftDirection = LeftHand.position - Head.position;
+            leftDirection = LeftHand.position - shoulders;
         }
-        else
-        {
-            leftDirection /= 1.5f;
-        }
+        currentLeftPower = GetPowerInHand(SteamVR_Input_Sources.LeftHand, currentLeftPower);
+
         if (FlyPress.GetState(SteamVR_Input_Sources.RightHand))
         {
-            rightDirection = RightHand.position - Head.position;
+            rightDirection = RightHand.position - shoulders;
         }
-        else
-        {
-            rightDirection /= 1.5f;
-        }
+        currentRightPower = GetPowerInHand(SteamVR_Input_Sources.RightHand, currentRightPower);
 
-        direction = leftDirection + rightDirection;
+        isFlying = (FlyPress.GetState(SteamVR_Input_Sources.LeftHand) || FlyPress.GetState(SteamVR_Input_Sources.RightHand));
+
+        direction = leftDirection * currentLeftPower + rightDirection * currentRightPower;
     }
 
-    private void SetSpeed()
+    private float GetPowerInHand(SteamVR_Input_Sources source, float power)
     {
-        if(SpeedAction.axis > 0)
+        float currentPower = power;
+        if(SpeedAction.GetAxis(source) > 0)
         {
-            speed += (SpeedAction.axis) * Time.deltaTime ;
+            currentPower += SpeedAction.GetAxis(source) * Speed * Time.deltaTime;
         }
         else
         {
-            speed -= 9.82f * Time.deltaTime;
+            if (controller.grounded)
+            {
+                currentPower -= deceleration * 5 * Time.deltaTime;
+            }
+            currentPower -= deceleration * Time.deltaTime;
         }
 
-        speed = Mathf.Clamp(speed, 0, MaxSpeed);
-        isFlying = (speed > 0);
+        return Mathf.Clamp(currentPower, 0, MaxSpeed);
     }
 
     private void HandleCharacterController()
@@ -82,12 +85,12 @@ public class FlyMovement : MonoBehaviour
         bodyGravity.enabled = !isFlying;
         if (isFlying)
         {
-            character.CheckIfGrounded = false;
-            character.currentGravity = 0;
+            //controller.CheckIfGrounded = false;
+            controller.currentGravity = 0;
         }
         else
         {
-            character.CheckIfGrounded = true;
+            //controller.CheckIfGrounded = true;
         }
     }
 }

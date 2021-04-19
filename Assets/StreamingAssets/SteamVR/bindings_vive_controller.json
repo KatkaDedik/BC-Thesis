@@ -103,15 +103,6 @@
             {
                "inputs" : {
                   "click" : {
-                     "output" : "/actions/default/in/interactui"
-                  }
-               },
-               "mode" : "button",
-               "path" : "/user/hand/left/input/trigger"
-            },
-            {
-               "inputs" : {
-                  "click" : {
                      "output" : "/actions/default/in/grabgrip"
                   }
                },
@@ -140,15 +131,6 @@
             {
                "inputs" : {
                   "click" : {
-                     "output" : "/actions/default/in/interactui"
-                  }
-               },
-               "mode" : "button",
-               "path" : "/user/hand/right/input/trigger"
-            },
-            {
-               "inputs" : {
-                  "click" : {
                      "output" : "/actions/default/in/grabpinch"
                   }
                },
@@ -158,32 +140,6 @@
                   "click_deactivate_threshold" : "0.7"
                },
                "path" : "/user/hand/right/input/trigger"
-            },
-            {
-               "inputs" : {
-                  "center" : {
-                     "output" : "/actions/default/in/teleport"
-                  },
-                  "east" : {
-                     "output" : "/actions/default/in/snapturnright"
-                  },
-                  "north" : {
-                     "output" : "/actions/default/in/teleport"
-                  },
-                  "south" : {
-                     "output" : "/actions/default/in/teleport"
-                  },
-                  "west" : {
-                     "output" : "/actions/default/in/snapturnleft"
-                  }
-               },
-               "mode" : "dpad",
-               "parameters" : {
-                  "deadzone_pct" : "90",
-                  "overlap_pct" : "15",
-                  "sub_mode" : "click"
-               },
-               "path" : "/user/hand/right/input/trackpad"
             },
             {
                "inputs" : {
@@ -206,7 +162,28 @@
                   }
                },
                "mode" : "trigger",
-               "path" : "/user/hand/left/input/trigger"
+               "path" : "/user/hand/right/input/trigger"
+            },
+            {
+               "inputs" : {
+                  "click" : {
+                     "output" : "/actions/default/in/touchpadclick"
+                  },
+                  "position" : {
+                     "output" : "/actions/default/in/touchpadposition"
+                  }
+               },
+               "mode" : "trackpad",
+               "path" : "/user/hand/left/input/trackpad"
+            },
+            {
+               "inputs" : {
+                  "click" : {
+                     "output" : "/actions/default/in/teleport"
+                  }
+               },
+               "mode" : "trackpad",
+               "path" : "/user/hand/right/input/trackpad"
             },
             {
                "inputs" : {
@@ -215,19 +192,7 @@
                   }
                },
                "mode" : "trigger",
-               "path" : "/user/hand/right/input/trigger"
-            },
-            {
-               "inputs" : {
-                  "click" : {
-                     "output" : "/actions/default/in/teleport"
-                  },
-                  "position" : {
-                     "output" : "/actions/default/in/touchpadposition"
-                  }
-               },
-               "mode" : "trackpad",
-               "path" : "/user/hand/left/input/trackpad"
+               "path" : "/user/hand/left/input/trigger"
             }
          ]
       },
@@ -275,7 +240,7 @@
    "category" : "steamvr_input",
    "controller_type" : "vive_controller",
    "description" : "",
-   "name" : "SBAPR",
+   "name" : "Saved SBAPR [Testing] configuration for Vive Controller",
    "options" : {},
    "simulated_actions" : []
 }
