@@ -26,6 +26,13 @@
 # models
 !*.blend
 !*.fbx
+!*.c4d
+!*.spp
+!*.jpg
+!*.tif
+!*.mtl
+!*.obj
+!*.exr
 
 # unity stuff
 Library/
