@@ -17,4 +17,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Old/Maze 4.unity
     guid: 07e2d6b5977a16940b85144633732c07
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 57c02ca7cbe2c174ba27b561bdfb74d2,
+      type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 676e5614c9759d84d8e3ffd58b6d3cf8,
+      type: 2}

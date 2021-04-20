@@ -1,13 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Valve.VR;
-using Valve.VR.InteractionSystem;
 
 [RequireComponent(typeof(VRCharacterController))]
 public class JoystickMovement : MonoBehaviour
 {
-    public SteamVR_Action_Boolean JoystickMovePress = null;
+    /*public SteamVR_Action_Boolean JoystickMovePress = null;
     public SteamVR_Action_Vector2 JoystickMoveValue = null;
     public float Sensitivity = 0.1f;
     public float MaxSpeed = 1.0f;
@@ -40,6 +38,6 @@ public class JoystickMovement : MonoBehaviour
         }
 
         controller.MovePlayer(transform.rotation * orientation * (speed * Vector3.forward) * Time.deltaTime);
-    }
+    }*/
 
 }

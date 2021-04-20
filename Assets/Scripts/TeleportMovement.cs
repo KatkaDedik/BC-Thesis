@@ -1,12 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Valve.VR;
 using Assets.Scripts;
 
 public class TeleportMovement : MonoBehaviour
 {
-    public GameObject Player;
+   /* public GameObject Player;
     public GameObject Pointer;
     public SteamVR_Action_Boolean TeleportAction;
     public Transform GroundCheck;
@@ -163,5 +162,5 @@ public class TeleportMovement : MonoBehaviour
         isTeleporting = false;
     }
 
-
+    */
 }

@@ -1,15 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Valve.VR;
 using Assets.Scripts;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(VRCharacterController))]
 public class FlyMovement : MonoBehaviour
 {
-
-    public SteamVR_Action_Boolean FlyPress;
-    public SteamVR_Action_Single SpeedAction;
+/*
+    public InputAction FlyPress;
+    public InputAction SpeedAction;
 
     public Transform LeftHand;
     public Transform RightHand;
@@ -44,7 +44,8 @@ public class FlyMovement : MonoBehaviour
     private void SetDirection()
     {
         var shoulders = transform.TransformPoint(controller.Head.localPosition.x, controller.Head.localPosition.y - 0.15f, controller.Head.localPosition.z);
-        if (FlyPress.GetState(SteamVR_Input_Sources.LeftHand))
+        //if (FlyPress.GetState(SteamVR_Input_Sources.LeftHand))
+        if (FlyPress.ReadValue<float>() > 0)
         {
             leftDirection = LeftHand.position - shoulders;
         }
@@ -92,5 +93,5 @@ public class FlyMovement : MonoBehaviour
         {
             //controller.CheckIfGrounded = true;
         }
-    }
+    }*/
 }
