@@ -324,7 +324,7 @@ namespace Valve.VR.InteractionSystem
 			float dotUp = Vector3.Dot( pointerDir, Vector3.up );
 			float dotForward = Vector3.Dot( pointerDir, player.hmdTransform.forward );
 			bool pointerAtBadAngle = false;
-			if ( ( dotForward > 0 && dotUp > 2f ) || ( dotForward < 0.0f && dotUp > 0.5f ) )
+			if ( ( dotForward > 0 && dotUp > 0.75f ) || ( dotForward < 0.0f && dotUp > 0.5f ) )
 			{
 				pointerAtBadAngle = true;
 			}

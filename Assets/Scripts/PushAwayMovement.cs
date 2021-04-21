@@ -13,16 +13,23 @@ public class PushAwayMovement : MonoBehaviour
     public SteamVR_Action_Boolean HoldAction;
     public float distanceToHold = 0.15f;
     public LayerMask HoldMask;
+    public int PositionBufferSize = 24;
+    public float Deceleration = 0.2f;
 
     private VRCharacterController controller;
     private HandHoldingStatus status;
     private Vector3 holdingPosition;
     private Transform holdingHandTransform;
+    private Vector3[] positionsBuffer;
+    private int bufferIndex = 0;
+    private Vector3 velocityDirection = Vector3.zero;
+    private float speed;
 
     private void Start()
     {
         controller = GetComponent<VRCharacterController>();
         status = HandHoldingStatus.None;
+        positionsBuffer = new Vector3[PositionBufferSize];
     }
 
     private void Update()
@@ -31,6 +38,10 @@ public class PushAwayMovement : MonoBehaviour
         if (status != HandHoldingStatus.None)
         {
             AnchoredMovement();
+        }
+        else
+        {
+            Movement();
         }
     }
 
@@ -80,7 +91,7 @@ public class PushAwayMovement : MonoBehaviour
                     return HandHoldingStatus.Right;
                 }
             }
-
+            PushAway();
             return HandHoldingStatus.None;
         }
 
@@ -102,7 +113,7 @@ public class PushAwayMovement : MonoBehaviour
                     return HandHoldingStatus.Left;
                 }
             }
-
+            PushAway();
             return HandHoldingStatus.None;
         }
 
@@ -117,7 +128,39 @@ public class PushAwayMovement : MonoBehaviour
 
     private void AnchoredMovement()
     {
+        positionsBuffer[bufferIndex % PositionBufferSize] = transform.position;
+        bufferIndex++;
         var handDeltaPosition =  holdingPosition - holdingHandTransform.position;
         controller.MovePlayer(handDeltaPosition);
+
+        if (bufferIndex > 6 * PositionBufferSize)
+        {
+            bufferIndex -= 3 * PositionBufferSize;
+        }
+    }
+
+    private void PushAway()
+    {
+        Vector3 currentPosition = positionsBuffer[bufferIndex % PositionBufferSize - 1];
+        Vector3 oldestPosition;
+        if(bufferIndex < PositionBufferSize)
+        {
+            oldestPosition = positionsBuffer[0];
+        }
+        else
+        {
+            oldestPosition = positionsBuffer[bufferIndex % PositionBufferSize];
+        }
+        
+        velocityDirection = currentPosition - oldestPosition;
+        speed = velocityDirection.magnitude * 10;
+        velocityDirection.Normalize();
+        bufferIndex = 0;
+    }
+
+    private void Movement()
+    {
+        speed = Mathf.Clamp(speed - Time.deltaTime * Deceleration, 0, 50);
+        controller.MovePlayer(velocityDirection * Time.deltaTime * speed);
     }
 }
