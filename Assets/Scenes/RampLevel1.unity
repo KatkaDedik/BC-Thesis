@@ -7008,6 +7008,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 729796223}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &729796225 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7690896558790406937, guid: ca7bee5bf999d344281f2da230496aac,
+    type: 3}
+  m_PrefabInstance: {fileID: 729796223}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &731696497
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9165,7 +9171,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StepOffset: 0.6
   SkinWidth: 0.08
-  gravity: 0
+  gravity: 9.82
   WalkableLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -9217,7 +9223,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 989237559}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f0313871fd1b84e4ca5092de335a5b54, type: 3}
   m_Name: 
@@ -9233,6 +9239,27 @@ MonoBehaviour:
   MaxSpeed: 5
   Speed: 5
   MinDeceleration: 1
+--- !u!114 &989237564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989237559}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e885bb80d25f6df49883c4bcd5892c0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RightHand: {fileID: 1403631878}
+  LeftHand: {fileID: 729796225}
+  HoldAction:
+    actionPath: /actions/default/in/GrabPinch
+    needsReinit: 0
+  distanceToHold: 0.15
+  HoldMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1001 &1016280378
 PrefabInstance:
   m_ObjectHideFlags: 0
