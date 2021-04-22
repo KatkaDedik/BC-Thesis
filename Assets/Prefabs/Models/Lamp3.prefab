@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3733346286744494399}
   - component: {fileID: 1453384922692392437}
   - component: {fileID: 7135699660062924334}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Lamp3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4106664440636347130}
   - component: {fileID: 8770798553621131620}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -198,7 +198,7 @@ GameObject:
   - component: {fileID: 2650021008206439113}
   - component: {fileID: 5798550395058532068}
   - component: {fileID: 3449356046962466260}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}

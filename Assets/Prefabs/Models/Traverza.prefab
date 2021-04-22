@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8050954613916451651}
   - component: {fileID: 5214688814514616201}
   - component: {fileID: 1896030403042784873}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Traverza
   m_TagString: Untagged
   m_Icon: {fileID: 0}

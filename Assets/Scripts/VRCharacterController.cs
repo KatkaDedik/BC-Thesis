@@ -13,6 +13,8 @@ public class VRCharacterController : MonoBehaviour
     public bool CheckIfGrounded = true;
     public Transform Head = null;
     public Transform groundCheck = null;
+    [HideInInspector]
+    public bool collided = false;
 
     private Vector3 move;
     private CapsuleCollider capsuleCollider;
@@ -157,6 +159,7 @@ public class VRCharacterController : MonoBehaviour
     #region Collision Checking
     private void CollisionCheck()
     {
+        collided = false;
         Collider[] overlaps = new Collider[5];
         int num = Physics.OverlapCapsuleNonAlloc(
             transform.TransformPoint(capsuleCollider.center + (0.5f + capsuleCollider.height / 2) * transform.up),
@@ -179,8 +182,10 @@ public class VRCharacterController : MonoBehaviour
             if (Physics.ComputePenetration(capsuleCollider, transform.position, transform.rotation, 
                 overlaps[i], t.position, t.rotation, out direction, out distance))
             {
+                collided = true;
                 Vector3 penetrationVector = direction * distance;
                 transform.position += penetrationVector;
+
             }
         }
     }

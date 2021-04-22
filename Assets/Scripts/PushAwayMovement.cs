@@ -160,6 +160,10 @@ public class PushAwayMovement : MonoBehaviour
 
     private void Movement()
     {
+        if (controller.collided)
+        {
+            speed = 0;
+        }
         speed = Mathf.Clamp(speed - Time.deltaTime * Deceleration, 0, 50);
         controller.MovePlayer(velocityDirection * Time.deltaTime * speed);
     }
