@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 [RequireComponent(typeof(CapsuleCollider))]
 public class VRCharacterController : MonoBehaviour
@@ -15,19 +16,25 @@ public class VRCharacterController : MonoBehaviour
     public Transform groundCheck = null;
     [HideInInspector]
     public bool collided = false;
+    public PostProcessVolume PP;
+    public float ChromaticStrenght = 1f;
 
     private Vector3 move;
     private CapsuleCollider capsuleCollider;
+    public ChromaticAberration chromatic;
 
     private void Start()
     {
         capsuleCollider = GetComponent<CapsuleCollider>();
+        //GameMaster.GetComponent<UnityEngine.Rendering.Volume>().profile.TryGet(out chromatic);
+        PP.profile.TryGetSettings(out chromatic);
     }
 
     private void Update()
     {
         HandleHeight();
         MovePlayer(downDirection * currentGravity * Time.deltaTime);
+        chromatic.intensity.Override( move.magnitude * ChromaticStrenght);
         transform.position += move;
         CollisionCheck();
         if (CheckIfGrounded)

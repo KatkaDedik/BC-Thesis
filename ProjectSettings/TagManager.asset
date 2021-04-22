@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - GroundCheck
+  - projectile
   layers:
   - Default
   - TransparentFX
@@ -20,8 +21,8 @@ TagManager:
   - GravityTrigger
   - GroundCheck
   - Teleport
-  - 
-  - 
+  - Grab
+  - PostProcessing
   - 
   - 
   - 
