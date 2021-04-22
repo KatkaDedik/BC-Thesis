@@ -55,9 +55,7 @@ namespace Assets.Scripts
             }
 
             gravityUp.Normalize();
-            Vector3 bodyUp = player.up;
-
-            return Quaternion.FromToRotation(bodyUp, gravityUp) * player.rotation;
+            return Quaternion.FromToRotation(player.up, gravityUp) * player.rotation;
         }
 
     }
