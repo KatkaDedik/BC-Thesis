@@ -73,6 +73,8 @@ public class TeleportMovement : MonoBehaviour
         if (Physics.Raycast(ray,out var hit, 42, ~IgnoreMask))
         {
             line.enabled = true;
+            line.positionCount = 2;
+            line.transform.position = transform.position;
             line.SetPositions(new Vector3[2] { transform.position, hit.point });
 
             Pointer.SetActive(true);

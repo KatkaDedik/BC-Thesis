@@ -151,7 +151,7 @@ GameObject:
   - component: {fileID: 876446441581901641}
   - component: {fileID: 9206907930817186379}
   m_Layer: 0
-  m_Name: reverse ramp (3)
+  m_Name: reverse ramp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -166,7 +166,7 @@ Transform:
   m_GameObject: {fileID: 3918416999126023042}
   m_LocalRotation: {x: -0.50000006, y: 0.5, z: -0.5, w: -0.4999999}
   m_LocalPosition: {x: 11.92, y: 1.148, z: -6.37}
-  m_LocalScale: {x: 19.932001, y: 19.932001, z: 19.932001}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
   - {fileID: 3592383244335277669}
   - {fileID: 2892011393572471750}
