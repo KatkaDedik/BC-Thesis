@@ -82,8 +82,10 @@ public class TeleportMovement : MonoBehaviour
             if (area == null)
             {
                 Pointer.GetComponent<MeshRenderer>().material = onMissMaterial;
+                line.material.SetInt("Hit", 0);
                 return false;
             }
+            line.material.SetInt("Hit", 1);
             Pointer.GetComponent<MeshRenderer>().material = onHitMaterial;
             return true;
         }
