@@ -4,6 +4,7 @@ using UnityEngine;
 using Valve.VR;
 using Assets.Scripts;
 
+[RequireComponent(typeof(LineRenderer))]
 public class TeleportMovement : MonoBehaviour
 {
     public GameObject Player;
@@ -30,10 +31,13 @@ public class TeleportMovement : MonoBehaviour
     private float distance = 1f;
     private float angleDistance;
     private float speed = 0f;
+    private LineRenderer line;
+
     private void Awake()
     {
         pose = GetComponent<SteamVR_Behaviour_Pose>();
         Pointer.SetActive(false);
+        line = GetComponent<LineRenderer>();
     }
 
     void Update()
@@ -50,6 +54,7 @@ public class TeleportMovement : MonoBehaviour
         //Teleport
         if (TeleportAction.GetStateUp(pose.inputSource))
         {
+            line.enabled = false;
             TryTeleport();
         }
     }
@@ -67,6 +72,8 @@ public class TeleportMovement : MonoBehaviour
         // if it is a hit
         if (Physics.Raycast(ray,out var hit, 42, ~IgnoreMask))
         {
+            line.enabled = true;
+            line.SetPositions(new Vector3[2] { transform.position, hit.point });
 
             Pointer.SetActive(true);
             Pointer.transform.position = hit.point;
