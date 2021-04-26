@@ -18,6 +18,7 @@ public class VRCharacterController : MonoBehaviour
     public bool collided = false;
     public PostProcessVolume PP;
     public float ChromaticStrenght = 1f;
+    public float currentChromaticStrenght = 0f;
 
     private Vector3 move;
     private CapsuleCollider capsuleCollider;
@@ -34,7 +35,8 @@ public class VRCharacterController : MonoBehaviour
     {
         HandleHeight();
         MovePlayer(downDirection * currentGravity * Time.deltaTime);
-        chromatic.intensity.Override( move.magnitude * ChromaticStrenght);
+        chromatic.intensity.Override( currentChromaticStrenght * ChromaticStrenght);
+        currentChromaticStrenght = 0f;
         transform.position += move;
         CollisionCheck();
         if (CheckIfGrounded)
@@ -81,11 +83,15 @@ public class VRCharacterController : MonoBehaviour
         groundCheck.localPosition = newCenter;
     }
 
-    public void MovePlayer(Vector3 moveBy)
+    public void MovePlayer(Vector3 moveBy, bool usechromatic = true)
     {
+        if (usechromatic)
+        {
+            currentChromaticStrenght += moveBy.magnitude;
+        }
         move += moveBy;
     }
-
+    
     #region Gravity methods
     [HideInInspector]
     public bool grounded;

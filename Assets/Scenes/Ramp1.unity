@@ -3420,6 +3420,16 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 3069359403397388899, guid: ca7bee5bf999d344281f2da230496aac,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3069359403397388899, guid: ca7bee5bf999d344281f2da230496aac,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7689896556773638281, guid: ca7bee5bf999d344281f2da230496aac,
         type: 3}
       propertyPath: m_Layer
@@ -3698,37 +3708,37 @@ PrefabInstance:
     - target: {fileID: 7690896558790612397, guid: ca7bee5bf999d344281f2da230496aac,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 18.447
+      value: 19.326
       objectReference: {fileID: 0}
     - target: {fileID: 7690896558790612397, guid: ca7bee5bf999d344281f2da230496aac,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7069625
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7690896558790612397, guid: ca7bee5bf999d344281f2da230496aac,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.014282891
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7690896558790612397, guid: ca7bee5bf999d344281f2da230496aac,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.7069625
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7690896558790612397, guid: ca7bee5bf999d344281f2da230496aac,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.014282894
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7690896558790612397, guid: ca7bee5bf999d344281f2da230496aac,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -2.315
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7690896558790612397, guid: ca7bee5bf999d344281f2da230496aac,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -90.00001
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7690896558790612397, guid: ca7bee5bf999d344281f2da230496aac,
         type: 3}
@@ -3981,6 +3991,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &764477495 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3069359403397388899, guid: ca7bee5bf999d344281f2da230496aac,
+    type: 3}
+  m_PrefabInstance: {fileID: 729796223}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &802829460
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4653,12 +4669,13 @@ MonoBehaviour:
   PlayerLayer:
     serializedVersion: 2
     m_Bits: 1024
-  CheckIfGrounded: 1
+  CheckIfGrounded: 0
   Head: {fileID: 507088503}
   groundCheck: {fileID: 1744681152}
   collided: 0
   PP: {fileID: 1959405676}
   ChromaticStrenght: 30
+  currentChromaticStrenght: 0
   chromatic: {fileID: 0}
   grounded: 0
 --- !u!114 &989237561
@@ -4668,7 +4685,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 989237559}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dbe6d797f8e230d419cb8f8b50ac4458, type: 3}
   m_Name: 
@@ -4759,11 +4776,12 @@ MonoBehaviour:
   RocketMoveValue:
     actionPath: /actions/default/in/TouchpadPosition
     needsReinit: 0
-  MaxEnergy: 0.5
-  MaxSpeed: 0.5
+  MaxEnergy: 1.5
+  MaxSpeed: 3
   Deceleration: 0.35
-  RotationSpeed: 20
-  Sensitivity: 0.05
+  RotationSpeed: 0.03
+  Sensitivity: 0.1
+  RotationHelper: {fileID: 764477495}
 --- !u!1001 &1010054090
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -13,6 +13,7 @@ public class ZeroGravityMovement : MonoBehaviour
     public float Deceleration = 0.2f;
     public float RotationSpeed = 0.1f;
     public float Sensitivity = 1;
+    public Transform RotationHelper = null;
     
     private Vector3 direction;
     private VRCharacterController controller;
@@ -26,13 +27,20 @@ public class ZeroGravityMovement : MonoBehaviour
 
     private void Update()
     {
-        //Figure out movement orientation
-        Vector3 orientationEuler = new Vector3(0.0f, controller.Head.localEulerAngles.y, 0.0f);
-        Quaternion orientation = Quaternion.Euler(orientationEuler);
-
+       
         if (RocketMovePress.GetState(SteamVR_Input_Sources.Any) && energy > 0)
         {
-            speed += RocketMoveValue.axis.y * Sensitivity;
+            //Figure out movement orientation
+            Vector3 orientationEuler = new Vector3(0.0f, controller.Head.localEulerAngles.y, 0.0f);
+            Quaternion orientation = Quaternion.Euler(orientationEuler);
+
+            //Move RotationHelper
+            RotationHelper.position = controller.groundCheck.position;
+            var rotation = Mathf.Clamp(controller.Head.localRotation.x * RotationSpeed, -RotationSpeed, RotationSpeed);
+            RotationHelper.localPosition = new Vector3(RotationHelper.localPosition.x, RotationHelper.localPosition.y, RotationHelper.localPosition.z - rotation);
+
+            var axis = Mathf.Clamp(RocketMoveValue.axis.y, 0, 1);
+            speed += axis * Sensitivity;
             energy -= Time.deltaTime * RocketMoveValue.axis.y;
             RotatePlayer();
             direction = transform.rotation * orientation * Vector3.forward * Time.deltaTime;
@@ -41,8 +49,12 @@ public class ZeroGravityMovement : MonoBehaviour
         {
             speed -= Deceleration * Time.deltaTime;
             energy += Time.deltaTime;
+            
         }
-
+        if (controller.collided)
+        {
+            speed = 0;
+        }
         speed = Mathf.Clamp(speed, 0, MaxSpeed);
 
         controller.MovePlayer(direction * speed);
@@ -50,7 +62,7 @@ public class ZeroGravityMovement : MonoBehaviour
 
     private void RotatePlayer()
     {
-        var rotatedForward = controller.Head.localRotation * Vector3.forward;
+        /*var rotatedForward = controller.Head.localRotation * Vector3.forward;
         rotatedForward.x = 0;
         rotatedForward.Normalize();
         var cosRotation = Vector3.Dot(rotatedForward, Vector3.forward);
@@ -59,5 +71,10 @@ public class ZeroGravityMovement : MonoBehaviour
         cosRotation = 1 - cosRotation;
 
         transform.localRotation *= Quaternion.AngleAxis(cosRotation * RotationSpeed * Time.deltaTime, Vector3.right);
+        */
+        //RotationHelper.localRotation 
+
+        var directionUp = controller.Head.position - RotationHelper.position;
+        transform.rotation = Quaternion.FromToRotation(transform.up, directionUp) * transform.rotation;
     }
 }

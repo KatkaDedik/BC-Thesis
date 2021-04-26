@@ -131,7 +131,7 @@ public class PushAwayMovement : MonoBehaviour
         positionsBuffer[bufferIndex % PositionBufferSize] = transform.position;
         bufferIndex++;
         var handDeltaPosition =  holdingPosition - holdingHandTransform.position;
-        controller.MovePlayer(handDeltaPosition);
+        controller.MovePlayer(handDeltaPosition, false);
 
         if (bufferIndex > 6 * PositionBufferSize)
         {
@@ -165,6 +165,7 @@ public class PushAwayMovement : MonoBehaviour
             speed = 0;
         }
         speed = Mathf.Clamp(speed - Time.deltaTime * Deceleration, 0, 50);
-        controller.MovePlayer(velocityDirection * Time.deltaTime * speed);
+        var finalMove = velocityDirection * Time.deltaTime * speed;
+        controller.MovePlayer(finalMove, true );
     }
 }
