@@ -50,7 +50,6 @@ namespace Assets.Scripts
                     GravityHelper.localPosition = tmp;
                     gravityUp = -(GravityHelper.position - transform.TransformPoint(Center));
                 }
-
                 if (freezeX)
                 {
                     gravityUp.x = 0;
@@ -71,5 +70,7 @@ namespace Assets.Scripts
         }
 
     }
+
+    
 
 }
