@@ -31,14 +31,25 @@ namespace Assets.Scripts
                 gravityUp = GravityOrientation;
             }
             else
-            {   
-                gravityUp = -(groundCheck.position -  center.position);
+            {
+                var tempGroundCheck = transform.InverseTransformPoint(groundCheck.position);
+                var deltaY = tempGroundCheck.y - center.localPosition.y;
+                if (deltaY < 0)
+                {
+                    tempGroundCheck.y = center.localPosition.y;
+                }
+                var deltaX = tempGroundCheck.x - center.localPosition.x;
+                if (deltaX < 0)
+                {
+                    tempGroundCheck.x = center.localPosition.x;
+                }
+
+                gravityUp = -(transform.TransformPoint(tempGroundCheck) - center.position);
 
                 if (isReverse)
                 {
                     gravityUp *= -1;
                 }
-
                 if (freezeX)
                 {
                     gravityUp.x = 0;
@@ -59,5 +70,7 @@ namespace Assets.Scripts
         }
 
     }
+
+    
 
 }

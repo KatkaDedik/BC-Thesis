@@ -71,11 +71,11 @@
          "chords" : [],
          "haptics" : [
             {
-               "output" : "/actions/default/out/haptic",
+               "output" : "none",
                "path" : "/user/hand/left/output/haptic"
             },
             {
-               "output" : "/actions/default/out/haptic",
+               "output" : "none",
                "path" : "/user/hand/right/output/haptic"
             }
          ],
@@ -240,7 +240,7 @@
    "category" : "steamvr_input",
    "controller_type" : "vive_controller",
    "description" : "",
-   "name" : "Saved SBAPR [Testing] configuration for Vive Controller",
+   "name" : "Uložené nastavení pro aplikaci SBAPR [Testing] (Vive Controller)",
    "options" : {},
    "simulated_actions" : []
 }
