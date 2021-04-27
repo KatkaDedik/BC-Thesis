@@ -6,15 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Old/Maze 1.unity
-    guid: a505ef403ab8c254b8f84b3698f506ab
+    path: Assets/Scenes/Ramp1.unity
+    guid: b674cbdc1af00234eb9cf0a4515017a5
   - enabled: 1
-    path: Assets/Scenes/Old/Maze 2.unity
-    guid: daa465c2d9e89614a97316507f43ab26
-  - enabled: 1
-    path: Assets/Scenes/Old/Maze 3.unity
-    guid: 7887e242c4a5fa147a3b1923f0860c76
-  - enabled: 1
-    path: Assets/Scenes/Old/Maze 4.unity
-    guid: 07e2d6b5977a16940b85144633732c07
+    path: Assets/Scenes/TestScene.unity
+    guid: 8587d5bc0abc74a40a4de5bec0637955
   m_configObjects: {}

@@ -99,7 +99,7 @@ LightmapSettings:
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 112000000, guid: f1548e9fde991a441bf98f11c28f1f21,
     type: 2}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -6940,6 +6940,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 7690896558790436309, guid: ca7bee5bf999d344281f2da230496aac,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7690896558790437405, guid: ca7bee5bf999d344281f2da230496aac,
         type: 3}
       propertyPath: m_Layer
@@ -6978,17 +6983,17 @@ PrefabInstance:
     - target: {fileID: 7690896558790612397, guid: ca7bee5bf999d344281f2da230496aac,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.165
+      value: -7.356
       objectReference: {fileID: 0}
     - target: {fileID: 7690896558790612397, guid: ca7bee5bf999d344281f2da230496aac,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.993
+      value: 1.347
       objectReference: {fileID: 0}
     - target: {fileID: 7690896558790612397, guid: ca7bee5bf999d344281f2da230496aac,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 17.121
+      value: 18.293
       objectReference: {fileID: 0}
     - target: {fileID: 7690896558790612397, guid: ca7bee5bf999d344281f2da230496aac,
         type: 3}
@@ -10885,6 +10890,59 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1194755989}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1203591404
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1203591406}
+  - component: {fileID: 1203591405}
+  m_Layer: 0
+  m_Name: DungeonMaster
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1203591405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1203591404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9cf5d9214de2244ab59bebcfa3a5ec9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BodyGravityScript: 0
+  Attractor: {fileID: 0}
+  JoystickMovementScript: 0
+  FlyMovementScript: 0
+  PushAwayMovementScript: 1
+  ZeroGravityMovementScript: 1
+  TeleportMovementScript: 0
+  DashTeleport: 0
+  Gravity: 0
+  CheckForGround: 0
+--- !u!4 &1203591406
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1203591404}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -7.356, y: 1.347, z: 18.293}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1223336237
 PrefabInstance:
   m_ObjectHideFlags: 0

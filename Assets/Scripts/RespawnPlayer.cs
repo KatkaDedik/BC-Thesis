@@ -14,6 +14,8 @@ public class RespawnPlayer : MonoBehaviour
     public bool ZeroGravityMovementScript = false;
     public bool TeleportMovementScript = false;
     public bool DashTeleport = false;
+    public float Gravity = 9.82f;
+    public bool CheckForGround = true;
     
     private GameObject player;
     void Start()
@@ -29,5 +31,8 @@ public class RespawnPlayer : MonoBehaviour
         player.GetComponent<ZeroGravityMovement>().enabled = ZeroGravityMovementScript;
         player.GetComponentInChildren<TeleportMovement>().enabled = TeleportMovementScript;
         player.GetComponentInChildren<TeleportMovement>().SmoothTeleport = DashTeleport;
+
+        player.GetComponent<VRCharacterController>().gravity = Gravity;
+        player.GetComponent<VRCharacterController>().CheckIfGrounded = CheckForGround;
     }
 }
