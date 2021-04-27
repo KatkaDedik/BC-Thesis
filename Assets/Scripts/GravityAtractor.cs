@@ -12,13 +12,14 @@ namespace Assets.Scripts
     public class GravityAtractor : MonoBehaviour
     {
         public bool isFloor = true;
-        public bool isReverse = false;
+        public bool isConvex = false;
         public float GravityForce = -9.81f;
         public Vector3 GravityOrientation;
         public bool freezeX = false;
         public bool freezeY = false;
         public bool freezeZ = false;
-        public Transform center = null;
+        public Transform GravityHelper = null;
+        public Vector3 Center = Vector3.zero;
 
 
         public Quaternion Attract(Transform player, Transform groundCheck)
@@ -31,12 +32,23 @@ namespace Assets.Scripts
                 gravityUp = GravityOrientation;
             }
             else
-            {   
-                gravityUp = -(groundCheck.position -  center.position);
-
-                if (isReverse)
+            {
+                GravityHelper.position = groundCheck.position;
+                var tmp = GravityHelper.localPosition;
+                
+                if (isConvex)
                 {
-                    gravityUp *= -1;
+                    tmp.y = Mathf.Clamp(tmp.y, -Mathf.Infinity, Center.y);
+                    tmp.x = Mathf.Clamp(tmp.x, Center.x, Mathf.Infinity);
+                    GravityHelper.localPosition = tmp;
+                    gravityUp = (GravityHelper.position - transform.TransformPoint(Center));
+                }
+                else
+                {
+                    tmp.y = Mathf.Clamp(tmp.y, Center.y, Mathf.Infinity);
+                    tmp.x = Mathf.Clamp(tmp.x, -Mathf.Infinity, Center.x);
+                    GravityHelper.localPosition = tmp;
+                    gravityUp = -(GravityHelper.position - transform.TransformPoint(Center));
                 }
 
                 if (freezeX)

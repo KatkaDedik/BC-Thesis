@@ -103,7 +103,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2892011393572471750}
-  - component: {fileID: 1864669061343439383}
   m_Layer: 0
   m_Name: gravity
   m_TagString: Untagged
@@ -119,25 +118,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1429411629730265712}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.2606, y: 0.2778, z: -0.1119}
-  m_LocalScale: {x: 0.013025852, y: 0.011146563, z: 0.21764}
+  m_LocalPosition: {x: -0.2516, y: 0.272, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7968259420480068202}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1864669061343439383
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1429411629730265712}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3918416999126023042
 GameObject:
   m_ObjectHideFlags: 0
@@ -187,8 +173,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.4100215, y: 0.4294323, z: 0.3140183}
-  m_Center: {x: -0.024855662, y: 0.043249346, z: -0.12785728}
+  m_Size: {x: 0.4476509, y: 0.47106132, z: 0.3140183}
+  m_Center: {x: -0.043670394, y: 0.064063884, z: -0.12785728}
 --- !u!114 &876446441581901641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,7 +194,8 @@ MonoBehaviour:
   freezeX: 0
   freezeY: 1
   freezeZ: 0
-  center: {fileID: 2892011393572471750}
+  GravityHelper: {fileID: 2892011393572471750}
+  Center: {x: -0.2516, y: 0.272, z: 0}
 --- !u!114 &9206907930817186379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -393,8 +380,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 0.7949266, z: 1}
+  m_Center: {x: -6.2487156e-17, y: 0.1025361, z: 3.3972279e-16}
 --- !u!114 &1692266311617401273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -800,8 +787,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.67551625, y: 1, z: 1.0826114}
+  m_Center: {x: 0.015061696, y: 1.3666723e-15, z: 0.041305702}
 --- !u!114 &976020397658021349
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -12551,6 +12551,21 @@ PrefabInstance:
       propertyPath: freezeZ
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6717995548651478830, guid: 49f992863a40bb749a0c50547f949b86,
+        type: 3}
+      propertyPath: RampGroundCheck
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6717995550091043188, guid: 49f992863a40bb749a0c50547f949b86,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6717995550091043188, guid: 49f992863a40bb749a0c50547f949b86,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49f992863a40bb749a0c50547f949b86, type: 3}
 --- !u!4 &1375783010 stripped
