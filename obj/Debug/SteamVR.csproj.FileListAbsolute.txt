@@ -118,11 +118,9 @@ D:\user_area\xDediko1\bakalarka\Temp\bin\Debug\System.Xml.XmlDocument.dll
 D:\user_area\xDediko1\bakalarka\Temp\bin\Debug\System.Xml.XmlSerializer.dll
 D:\user_area\xDediko1\bakalarka\Temp\bin\Debug\System.Xml.XPath.dll
 D:\user_area\xDediko1\bakalarka\Temp\bin\Debug\System.Xml.XPath.XDocument.dll
-D:\user_area\xDediko1\bakalarka\Temp\bin\Debug\UnityEditor.Android.Extensions.dll
 D:\user_area\xDediko1\bakalarka\Temp\bin\Debug\UnityEditor.dll
 D:\user_area\xDediko1\bakalarka\Temp\bin\Debug\UnityEditor.Graphs.dll
 D:\user_area\xDediko1\bakalarka\Temp\bin\Debug\UnityEditor.UI.dll
-D:\user_area\xDediko1\bakalarka\Temp\bin\Debug\UnityEditor.VR.dll
 D:\user_area\xDediko1\bakalarka\Temp\bin\Debug\UnityEditor.WindowsStandalone.Extensions.dll
 D:\user_area\xDediko1\bakalarka\Temp\bin\Debug\UnityEngine.AccessibilityModule.dll
 D:\user_area\xDediko1\bakalarka\Temp\bin\Debug\UnityEngine.AIModule.dll
@@ -255,7 +253,6 @@ D:\user_area\xDediko1\bakalarka\Temp\bin\Debug\UnityEngine.VehiclesModule.xml
 D:\user_area\xDediko1\bakalarka\Temp\bin\Debug\UnityEngine.VideoModule.xml
 D:\user_area\xDediko1\bakalarka\Temp\bin\Debug\UnityEngine.WindModule.xml
 D:\user_area\xDediko1\bakalarka\Temp\bin\Debug\UnityEngine.XRModule.xml
-D:\user_area\xDediko1\bakalarka\Temp\bin\Debug\UnityEditor.WindowsStandalone.Extensions.pdb
 D:\user_area\xDediko1\bakalarka\Temp\bin\Debug\UnityEditor.UI.pdb
 D:\user_area\xDediko1\bakalarka\Temp\bin\Debug\UnityEngine.UI.pdb
 D:\user_area\xDediko1\bakalarka\obj\Debug\SteamVR.csprojAssemblyReference.cache
@@ -263,3 +260,7 @@ D:\user_area\xDediko1\bakalarka\obj\Debug\SteamVR.csproj.CoreCompileInputs.cache
 D:\user_area\xDediko1\bakalarka\obj\Debug\SteamVR.csproj.CopyComplete
 D:\user_area\xDediko1\bakalarka\obj\Debug\SteamVR.dll
 D:\user_area\xDediko1\bakalarka\obj\Debug\SteamVR.pdb
+D:\User_Area\xdediko1\bakalarka\Temp\Bin\Debug\UnityEngine.UIElementsNativeModule.dll
+D:\User_Area\xdediko1\bakalarka\Temp\Bin\Debug\UnityEngine.VirtualTexturingModule.dll
+D:\User_Area\xdediko1\bakalarka\Temp\Bin\Debug\UnityEngine.UIElementsNativeModule.xml
+D:\User_Area\xdediko1\bakalarka\Temp\Bin\Debug\UnityEngine.VirtualTexturingModule.xml

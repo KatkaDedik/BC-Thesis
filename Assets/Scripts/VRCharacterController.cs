@@ -47,6 +47,7 @@ public class VRCharacterController : MonoBehaviour
         {
             grounded = false;
         }
+        
     }
 
     private void FixedUpdate()
@@ -77,7 +78,7 @@ public class VRCharacterController : MonoBehaviour
         capsuleCollider.center = newCenter;
 
         liftPoint = new Vector3(newCenter.x, newCenter.y + headHeight / 2, newCenter.z);
-        GroundCheck = new Vector3(newCenter.x, newCenter.y - headHeight / 2, newCenter.z);
+        GroundCheck = new Vector3(newCenter.x, newCenter.y - headHeight / 2 - 0.01f, newCenter.z);
 
         newCenter.y = groundCheck.localPosition.y;
         groundCheck.localPosition = newCenter;
@@ -93,9 +94,9 @@ public class VRCharacterController : MonoBehaviour
     }
     
     #region Gravity methods
-    [HideInInspector]
+    //[HideInInspector]
     public bool grounded;
-    public float currentGravity { get; set; }
+    public float currentGravity;//{ get; set; }
     private Vector3 liftPoint;
     private RaycastHit groundHit;
     private Vector3 GroundCheck;
