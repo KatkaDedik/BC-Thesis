@@ -10,10 +10,6 @@ public class LoadScene : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
-        {
-            SceneManager.LoadScene(nextScene);
-        }
-        
+        SceneManager.LoadScene(nextScene);
     }
 }

@@ -9,21 +9,34 @@ public class GravityTrigger : MonoBehaviour
     public GravityAtractor atractor;
     private GameObject player;
 
-    void OnTriggerStay(Collider other)
+    private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+    }
+
+    void OnTriggerStay(Collider other)
+    {
         if (other.tag == "GroundCheck")
         {
             player.GetComponent<BodyGravity>().atractor = atractor;
         }
     }
 
+    
     void OnTriggerEnter(Collider other)
     {
-        player = GameObject.FindGameObjectWithTag("Player");
         if (other.tag == "GroundCheck")
         {
             player.GetComponent<BodyGravity>().atractor = atractor;
+            Debug.Log($"enter {this.gameObject.name}");
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "GroundCheck")
+        {
+            Debug.Log($"left {this.gameObject.name}");
         }
     }
 }

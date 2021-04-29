@@ -136,8 +136,8 @@ GameObject:
   - component: {fileID: 7476271444067142662}
   - component: {fileID: 2675106427071939946}
   - component: {fileID: 2432062946560131543}
-  - component: {fileID: 7905833905255752342}
-  m_Layer: 14
+  - component: {fileID: 5773403899817684951}
+  m_Layer: 8
   m_Name: RoofTraversa
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -181,6 +181,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -205,7 +206,8 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &7905833905255752342
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &5773403899817684951
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -216,8 +218,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 6.126154, y: 1.9630426, z: 0.23969996}
-  m_Center: {x: 0.063076854, y: 0.86167127, z: -1.5}
+  m_Size: {x: 6.126154, y: 1.9411436, z: 0.23969984}
+  m_Center: {x: 0.06307697, y: 0.87262076, z: -1.5}
 --- !u!1 &4942597712550755007
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,7 +232,7 @@ GameObject:
   - component: {fileID: 4492003511805647847}
   - component: {fileID: 8802548717741378625}
   - component: {fileID: 6132714191577441450}
-  m_Layer: 14
+  m_Layer: 8
   m_Name: RoofTraversa_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -274,6 +276,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -298,6 +301,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &6132714191577441450
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -309,8 +313,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 6.126154, y: 1.9630426, z: 0.23969996}
-  m_Center: {x: 0.063076854, y: 0.86167127, z: -1.5}
+  m_Size: {x: 6.126154, y: 1.9419245, z: 0.23969984}
+  m_Center: {x: 0.06307697, y: 0.87223035, z: -1.5}
 --- !u!1 &5406107814263803827
 GameObject:
   m_ObjectHideFlags: 0
@@ -367,6 +371,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -391,6 +396,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &6491405098872863871
 GameObject:
   m_ObjectHideFlags: 0
@@ -491,6 +497,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -515,6 +522,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &8578616032210309655
 GameObject:
   m_ObjectHideFlags: 0
@@ -620,6 +628,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -644,6 +653,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &5712154150997754468
 BoxCollider:
   m_ObjectHideFlags: 0
