@@ -51,7 +51,7 @@ public class ZeroGravityMovement : MonoBehaviour
             speed += axis * Sensitivity;
             energy -= Time.deltaTime * RocketMoveValue.axis.y;
             RotatePlayer();
-            direction = transform.rotation * orientation * Vector3.forward * Time.deltaTime;
+            direction = transform.rotation * orientation * Vector3.forward ;
         }
         else
         {
@@ -65,7 +65,7 @@ public class ZeroGravityMovement : MonoBehaviour
         }
         speed = Mathf.Clamp(speed, 0, MaxSpeed);
 
-        controller.MovePlayer(direction * speed);
+        controller.MovePlayer(direction * speed * Time.deltaTime);
     }
 
     private void RotatePlayer()
