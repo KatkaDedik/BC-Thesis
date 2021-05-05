@@ -11,7 +11,7 @@ public class PushAwayMovement : MonoBehaviour
     public GameObject RightHand;
     public GameObject LeftHand;
     public SteamVR_Action_Boolean HoldAction;
-    public float distanceToHold = 0.15f;
+    public float DistanceToHold = 0.15f;
     public LayerMask HoldMask;
     public int PositionBufferSize = 24;
     public float Deceleration = 0.2f;
@@ -46,83 +46,101 @@ public class PushAwayMovement : MonoBehaviour
     }
 
     private HandHoldingStatus IsAnchored()
-    {
-
+    { 
         if (status == HandHoldingStatus.None)
         {
             //check if right hand closed from last frame
-            if (HoldAction.GetStateDown(SteamVR_Input_Sources.RightHand))
-            {
-                if (LookForObjectToHold(RightHand.transform))
-                {
-                    holdingPosition = RightHand.transform.position;
-                    holdingHandTransform = RightHand.transform;
-                    return HandHoldingStatus.Right;
-                }
-            }
-
-            //check if left hand closed from last frame
-            if (HoldAction.GetStateDown(SteamVR_Input_Sources.LeftHand))
-            {
-                if (LookForObjectToHold(LeftHand.transform))
-                {
-                    holdingHandTransform = LeftHand.transform;
-                    holdingPosition = LeftHand.transform.position;
-                    return HandHoldingStatus.Left;
-                }
-            }
-        }
-
-        if(status == HandHoldingStatus.Left)
-        {
-            //if player still pressing action, do not change anything
-            if (!HoldAction.GetStateUp(SteamVR_Input_Sources.LeftHand))
-            {
-                return HandHoldingStatus.Left;
-            }
-
-            //check if right hand isn't trying to hold something
-            if (HoldAction.GetState(SteamVR_Input_Sources.RightHand))
-            {
-                if (LookForObjectToHold(RightHand.transform))
-                {
-                    holdingHandTransform = RightHand.transform;
-                    holdingPosition = RightHand.transform.position;
-                    return HandHoldingStatus.Right;
-                }
-            }
-            PushAway();
-            return HandHoldingStatus.None;
-        }
-
-        if (status == HandHoldingStatus.Right)
-        {
-            //if player still pressing action, do not change anything
-            if (!HoldAction.GetStateUp(SteamVR_Input_Sources.RightHand))
+            if (StartedHolding(SteamVR_Input_Sources.RightHand, RightHand.transform))
             {
                 return HandHoldingStatus.Right;
             }
 
-            //check if left hand isn't trying to hold something
-            if (HoldAction.GetState(SteamVR_Input_Sources.LeftHand))
+            //check if left hand closed from last frame
+            if (StartedHolding(SteamVR_Input_Sources.LeftHand, LeftHand.transform))
             {
-                if (LookForObjectToHold(LeftHand.transform))
-                {
-                    holdingHandTransform = LeftHand.transform;
-                    holdingPosition = LeftHand.transform.position;
-                    return HandHoldingStatus.Left;
-                }
+                return HandHoldingStatus.Right;
             }
-            PushAway();
+        }
+        
+        return StillHolding(status);
+    }
+
+    private HandHoldingStatus StillHolding(HandHoldingStatus status)
+    {
+
+        if(GetCompleteStatus(status, out var holdingHand, out var freeHand, out var otherHandStatus, out var otherHandTransform))
+        {
             return HandHoldingStatus.None;
         }
+        
+        //if player still pressing action, do not change anything
+        if (!HoldAction.GetStateUp(holdingHand))
+        {
+            return status;
+        }
+        //player stopped holding with this hand
 
-        return status;
+        //check if free hand isn't trying to hold onto something
+        if (HoldAction.GetState(freeHand))
+        {
+            if (LookForObjectToHold(otherHandTransform))
+            {
+                holdingHandTransform = otherHandTransform;
+                holdingPosition = otherHandTransform.position;
+                return otherHandStatus;
+            }
+        }
+        PushAway();
+        return HandHoldingStatus.None;
     }
+
+    private bool GetCompleteStatus(HandHoldingStatus currentStatus, 
+        out SteamVR_Input_Sources holdingHand, 
+        out SteamVR_Input_Sources freeHand, 
+        out HandHoldingStatus otherHand, 
+        out Transform otherHandTransform)
+    {
+        switch (status)
+        {
+            case HandHoldingStatus.Right:
+                holdingHand = SteamVR_Input_Sources.RightHand;
+                freeHand = SteamVR_Input_Sources.LeftHand;
+                otherHand = HandHoldingStatus.Left;
+                otherHandTransform = LeftHand.transform;
+                break;
+            case HandHoldingStatus.Left:
+                holdingHand = SteamVR_Input_Sources.LeftHand;
+                freeHand = SteamVR_Input_Sources.RightHand;
+                otherHand = HandHoldingStatus.Right;
+                otherHandTransform = RightHand.transform;
+                break;
+            default:
+                holdingHand = SteamVR_Input_Sources.Any;
+                freeHand = SteamVR_Input_Sources.Any;
+                otherHand = HandHoldingStatus.None;
+                otherHandTransform = null;
+                return false;
+        }
+        return true;
+    }
+
+    private bool StartedHolding(SteamVR_Input_Sources inputSource, Transform hand)
+    {
+        if (HoldAction.GetStateDown(inputSource))
+        {
+            if (LookForObjectToHold(hand))
+            {
+                holdingPosition = hand.position;
+                holdingHandTransform = hand;
+                return true;
+            }
+        }
+        return false;
+    } 
 
     private bool LookForObjectToHold(Transform handTransform)
     {
-        Collider[] colliders = Physics.OverlapSphere(handTransform.position, distanceToHold, HoldMask);
+        Collider[] colliders = Physics.OverlapSphere(handTransform.position, DistanceToHold, HoldMask);
         return colliders.Length > 0;
     }
 
