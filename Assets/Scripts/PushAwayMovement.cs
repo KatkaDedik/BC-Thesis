@@ -58,7 +58,7 @@ public class PushAwayMovement : MonoBehaviour
             //check if left hand closed from last frame
             if (StartedHolding(SteamVR_Input_Sources.LeftHand, LeftHand.transform))
             {
-                return HandHoldingStatus.Right;
+                return HandHoldingStatus.Left;
             }
         }
         
@@ -68,7 +68,7 @@ public class PushAwayMovement : MonoBehaviour
     private HandHoldingStatus StillHolding(HandHoldingStatus status)
     {
 
-        if(GetCompleteStatus(status, out var holdingHand, out var freeHand, out var otherHandStatus, out var otherHandTransform))
+        if(!GetCompleteStatus(status, out var holdingHand, out var freeHand, out var otherHandStatus, out var otherHandTransform))
         {
             return HandHoldingStatus.None;
         }
