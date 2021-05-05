@@ -7,25 +7,28 @@ using Assets.Scripts;
 [RequireComponent(typeof(LineRenderer))]
 public class TeleportMovement : MonoBehaviour
 {
-    public enum TeleportType { Dash, Fade};
+    public enum Type { Dash, Fade};
+    public Type TeleportType = Type.Dash;
 
     public GameObject Player;
     public GameObject Pointer;
     public SteamVR_Action_Boolean TeleportAction;
     public Transform GroundCheck;
     public LayerMask IgnoreMask;
-
-    public bool DashTeleport = false;
     public Material onHitMaterial;
     public Material onMissMaterial;
     public float Gravity = 9.82f;
 
+    private bool isTeleporting = false;
     private SteamVR_Behaviour_Pose pose = null;
     private bool pointerHasPosition = false;
-    private bool isTeleporting = false;
+    private LineRenderer line;
+
+    // Fade teleport
     private float fadeTime = 0.5f;
     private TeleportArea area;
 
+    //Dash teleport
     private float teleportTimer = 0f;
     private Vector3 endPosition = Vector3.zero;
     private Vector3 startPosition = Vector3.zero;
@@ -34,7 +37,6 @@ public class TeleportMovement : MonoBehaviour
     private float distance = 1f;
     private float angleDistance;
     private float speed = 0f;
-    private LineRenderer line;
 
     private void Awake()
     {
@@ -43,16 +45,10 @@ public class TeleportMovement : MonoBehaviour
         line = GetComponent<LineRenderer>();
     }
 
-    void Update()
+    private void Update()
     {
         //Pointer
         pointerHasPosition = UpdatePointer();
-
-        if (DashTeleport && isTeleporting)
-        {
-            SmoothTeleportPlayer();
-            return;
-        }
 
         //Teleport
         if (TeleportAction.GetStateUp(pose.inputSource))
@@ -112,18 +108,22 @@ public class TeleportMovement : MonoBehaviour
         Vector3 translateVector = Pointer.transform.position - GroundCheck.position;
 
         //Move
-        if (DashTeleport)
+        switch (TeleportType)
         {
-            distance = translateVector.magnitude;
-            SetStartEndTransform();
-            Player.GetComponent<BodyGravity>().enabled = false;
-            angleDistance = Quaternion.Angle(startQuaternion, endQuaternion);
-            SmoothTeleportPlayer();
+            case Type.Dash:
+                distance = translateVector.magnitude;
+                SetStartEndTransform();
+                Player.GetComponent<BodyGravity>().enabled = false;
+                angleDistance = Quaternion.Angle(startQuaternion, endQuaternion);
+                StartCoroutine(DashTeleportPlayer());
+                break;
+            case Type.Fade:
+                StartCoroutine(FleshTeleport(translateVector));
+                break;
+            default:
+                break;
         }
-        else
-        {
-            StartCoroutine(FleshTeleportPlayer(translateVector));
-        }
+        
     }
 
     private void SetStartEndTransform()
@@ -135,29 +135,36 @@ public class TeleportMovement : MonoBehaviour
         isTeleporting = true;
     }
 
-    private void SmoothTeleportPlayer()
+    private IEnumerator DashTeleportPlayer()
     {
-        teleportTimer += Time.deltaTime;
-        speed += Gravity * Time.deltaTime;
-        speed = Mathf.Clamp(speed, 0, 15);
+        // Flag
+        isTeleporting = true;
 
-        if (speed * teleportTimer / distance > 1) 
+        while (speed * teleportTimer / distance <= 1)
         {
-            speed = 0;
-            teleportTimer = 0f;
-            isTeleporting = false;
-            Player.GetComponent<BodyGravity>().enabled = true;
-            Player.GetComponent<VRCharacterController>().currentGravity = 0f;
-            area.ChangeAtractor(Player);
-            Player.transform.position = endPosition;
-            return;
+            teleportTimer += Time.deltaTime;
+            speed += Gravity * Time.deltaTime;
+            speed = Mathf.Clamp(speed, 0, 15);
+
+            Player.transform.position = Vector3.Lerp(startPosition, endPosition, speed * teleportTimer / distance);
+            Player.transform.rotation = Quaternion.Slerp(startQuaternion, endQuaternion, 200 * teleportTimer / angleDistance - 0.15f);
+
+            yield return null;
         }
 
-        Player.transform.position = Vector3.Lerp(startPosition, endPosition, speed * teleportTimer / distance);
-        Player.transform.rotation = Quaternion.Slerp(startQuaternion, endQuaternion, 200 * teleportTimer / angleDistance - 0.15f);
+        speed = 0;
+        teleportTimer = 0f;
+        isTeleporting = false;
+        Player.GetComponent<BodyGravity>().enabled = true;
+        Player.GetComponent<VRCharacterController>().currentGravity = 0f;
+        area.ChangeAtractor(Player);
+        Player.transform.position = endPosition;
+
+        //De-flag
+        isTeleporting = false;
     }
 
-    private IEnumerator FleshTeleportPlayer(Vector3 translation)
+    private IEnumerator FleshTeleport(Vector3 translation)
     {
         // Flag
         isTeleporting = true;

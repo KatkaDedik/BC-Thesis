@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class RespawnPlayer : MonoBehaviour
 {
-
     public bool BodyGravityScript = false;
     public GravityAttractor Attractor;
     public bool JoystickMovementScript = false;
@@ -13,7 +12,7 @@ public class RespawnPlayer : MonoBehaviour
     public bool PushAwayMovementScript = false;
     public bool ZeroGravityMovementScript = false;
     public bool TeleportMovementScript = false;
-    public bool DashTeleport = false;
+    public TeleportMovement.Type TeleportType = TeleportMovement.Type.Dash;
     public float Gravity = 9.82f;
     public bool CheckForGround = true;
     
@@ -30,7 +29,7 @@ public class RespawnPlayer : MonoBehaviour
         player.GetComponent<PushAwayMovement>().enabled = PushAwayMovementScript;
         player.GetComponent<ZeroGravityMovement>().enabled = ZeroGravityMovementScript;
         player.GetComponentInChildren<TeleportMovement>().enabled = TeleportMovementScript;
-        player.GetComponentInChildren<TeleportMovement>().DashTeleport = DashTeleport;
+        player.GetComponentInChildren<TeleportMovement>().TeleportType = TeleportType;
 
         player.GetComponent<VRCharacterController>().gravity = Gravity;
         player.GetComponent<VRCharacterController>().CheckIfGrounded = CheckForGround;
