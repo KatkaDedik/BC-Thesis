@@ -38,7 +38,11 @@ public class FlyMovement : MonoBehaviour
     {
         SetDirection();
         HandleCharacterController();
-        controller.MovePlayer(direction * Time.deltaTime);
+        if((direction * Time.deltaTime) != Vector3.zero)
+        {
+
+            controller.MovePlayer(direction * Time.deltaTime);
+        }
     }
 
     private void SetDirection()
@@ -85,12 +89,12 @@ public class FlyMovement : MonoBehaviour
         bodyGravity.enabled = !isFlying;
         if (isFlying)
         {
-            //controller.CheckIfGrounded = false;
+            controller.CheckIfGrounded = false;
             controller.currentGravity = 0;
         }
         else
         {
-            //controller.CheckIfGrounded = true;
+            controller.CheckIfGrounded = true;
         }
     }
 }

@@ -173,11 +173,17 @@ public class VRCharacterController : MonoBehaviour
     #region Collision Checking
     private void CollisionCheck()
     {
+        var offset = StepOffset;
+        if (!CheckIfGrounded)
+        {
+            offset = 0;
+        }
+
         collided = false;
         Collider[] overlaps = new Collider[5];
         int num = Physics.OverlapCapsuleNonAlloc(
-            transform.TransformPoint(capsuleCollider.center + (0.5f + capsuleCollider.height / 2) * transform.up),
-            transform.TransformPoint(capsuleCollider.center + (capsuleCollider.height / 2 - StepOffset) * -transform.up),
+            transform.TransformPoint(capsuleCollider.center + (0.1f + capsuleCollider.height / 2) * transform.up),
+            transform.TransformPoint(capsuleCollider.center + (capsuleCollider.height / 2 - offset) * -transform.up),
             capsuleCollider.radius,
             overlaps,
             ~PlayerLayer,

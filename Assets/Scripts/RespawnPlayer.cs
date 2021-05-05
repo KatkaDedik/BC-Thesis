@@ -6,7 +6,7 @@ using UnityEngine;
 public class RespawnPlayer : MonoBehaviour
 {
     public bool BodyGravityScript = false;
-    public GravityAttractor Attractor;
+    public GameObject Attractor;
     public bool JoystickMovementScript = false;
     public bool FlyMovementScript = false;
     public bool PushAwayMovementScript = false;
@@ -23,7 +23,7 @@ public class RespawnPlayer : MonoBehaviour
         player.transform.position = transform.position;
 
         player.GetComponent<BodyGravity>().enabled = BodyGravityScript;
-        player.GetComponent<BodyGravity>().attractor = Attractor;
+        player.GetComponent<BodyGravity>().attractor = Attractor.GetComponent<IGravityAttractor>();
         player.GetComponent<JoystickMovement>().enabled = JoystickMovementScript;
         player.GetComponent<FlyMovement>().enabled = FlyMovementScript;
         player.GetComponent<PushAwayMovement>().enabled = PushAwayMovementScript;

@@ -9186,7 +9186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e2ade4678ca5c04fb01b56c988f8b22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StepOffset: 0.6
+  StepOffset: 0.5
   SkinWidth: 0.08
   gravity: 9.82
   WalkableLayer:
@@ -10871,16 +10871,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9cf5d9214de2244ab59bebcfa3a5ec9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BodyGravityScript: 0
-  Attractor: {fileID: 0}
-  JoystickMovementScript: 0
-  FlyMovementScript: 0
-  PushAwayMovementScript: 1
-  ZeroGravityMovementScript: 1
+  BodyGravityScript: 1
+  Attractor: {fileID: 1730268408207703075}
+  JoystickMovementScript: 1
+  FlyMovementScript: 1
+  PushAwayMovementScript: 0
+  ZeroGravityMovementScript: 0
   TeleportMovementScript: 0
   TeleportType: 0
-  Gravity: 0
-  CheckForGround: 0
+  Gravity: 9.82
+  CheckForGround: 1
 --- !u!4 &1203591406
 Transform:
   m_ObjectHideFlags: 0
