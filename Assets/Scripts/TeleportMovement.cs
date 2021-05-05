@@ -7,12 +7,15 @@ using Assets.Scripts;
 [RequireComponent(typeof(LineRenderer))]
 public class TeleportMovement : MonoBehaviour
 {
+    public enum TeleportType { Dash, Fade};
+
     public GameObject Player;
     public GameObject Pointer;
     public SteamVR_Action_Boolean TeleportAction;
     public Transform GroundCheck;
     public LayerMask IgnoreMask;
-    public bool SmoothTeleport = false;
+
+    public bool DashTeleport = false;
     public Material onHitMaterial;
     public Material onMissMaterial;
     public float Gravity = 9.82f;
@@ -45,7 +48,7 @@ public class TeleportMovement : MonoBehaviour
         //Pointer
         pointerHasPosition = UpdatePointer();
 
-        if (SmoothTeleport && isTeleporting)
+        if (DashTeleport && isTeleporting)
         {
             SmoothTeleportPlayer();
             return;
@@ -109,7 +112,7 @@ public class TeleportMovement : MonoBehaviour
         Vector3 translateVector = Pointer.transform.position - GroundCheck.position;
 
         //Move
-        if (SmoothTeleport)
+        if (DashTeleport)
         {
             distance = translateVector.magnitude;
             SetStartEndTransform();
@@ -128,7 +131,7 @@ public class TeleportMovement : MonoBehaviour
         startPosition = Player.transform.position;
         endPosition = Pointer.transform.position;
         startQuaternion = Player.transform.rotation;
-        endQuaternion = area.atractor.Attract(Player.transform, GroundCheck);
+        endQuaternion = area.attractor.Attract(Player.transform, GroundCheck);
         isTeleporting = true;
     }
 

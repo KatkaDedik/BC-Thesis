@@ -5,10 +5,16 @@ using Assets.Scripts;
 
 public class TeleportArea : MonoBehaviour
 {
-    public GravityAtractor atractor;
+    public GameObject Attractor;
+    public IGravityAttractor attractor;
+
+    private void Start()
+    {
+        attractor = Attractor.GetComponent<IGravityAttractor>();
+    }
 
     public void ChangeAtractor(GameObject player)
     {
-        player.GetComponent<BodyGravity>().atractor = atractor;
+        player.GetComponent<BodyGravity>().attractor = attractor;
     }
 }

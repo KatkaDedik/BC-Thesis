@@ -9,11 +9,10 @@ using UnityEngine;
 namespace Assets.Scripts
 {
 
-    public class GravityAtractor : MonoBehaviour
+    public class GravityAttractor : MonoBehaviour, IGravityAttractor
     {
         public bool isFloor = true;
         public bool isConvex = false;
-        public float GravityForce = -9.81f;
         public Vector3 GravityOrientation;
         public bool freezeX = false;
         public bool freezeY = false;

@@ -5,20 +5,22 @@ using UnityEngine;
 
 public class GravityTrigger : MonoBehaviour
 {
+    public GameObject AttractorGameObject;
 
-    public GravityAtractor atractor;
     private GameObject player;
+    private IGravityAttractor attractor;
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        attractor = AttractorGameObject.GetComponent<IGravityAttractor>();
     }
 
     void OnTriggerStay(Collider other)
     {
         if (other.tag == "GroundCheck")
         {
-            player.GetComponent<BodyGravity>().atractor = atractor;
+            player.GetComponent<BodyGravity>().attractor = attractor;
         }
     }
 
@@ -27,7 +29,7 @@ public class GravityTrigger : MonoBehaviour
     {
         if (other.tag == "GroundCheck")
         {
-            player.GetComponent<BodyGravity>().atractor = atractor;
+            player.GetComponent<BodyGravity>().attractor = attractor;
             Debug.Log($"enter {this.gameObject.name}");
         }
     }

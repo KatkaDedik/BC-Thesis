@@ -7,7 +7,7 @@ public class RespawnPlayer : MonoBehaviour
 {
 
     public bool BodyGravityScript = false;
-    public GravityAtractor Attractor;
+    public GravityAttractor Attractor;
     public bool JoystickMovementScript = false;
     public bool FlyMovementScript = false;
     public bool PushAwayMovementScript = false;
@@ -24,13 +24,13 @@ public class RespawnPlayer : MonoBehaviour
         player.transform.position = transform.position;
 
         player.GetComponent<BodyGravity>().enabled = BodyGravityScript;
-        player.GetComponent<BodyGravity>().atractor = Attractor;
+        player.GetComponent<BodyGravity>().attractor = Attractor;
         player.GetComponent<JoystickMovement>().enabled = JoystickMovementScript;
         player.GetComponent<FlyMovement>().enabled = FlyMovementScript;
         player.GetComponent<PushAwayMovement>().enabled = PushAwayMovementScript;
         player.GetComponent<ZeroGravityMovement>().enabled = ZeroGravityMovementScript;
         player.GetComponentInChildren<TeleportMovement>().enabled = TeleportMovementScript;
-        player.GetComponentInChildren<TeleportMovement>().SmoothTeleport = DashTeleport;
+        player.GetComponentInChildren<TeleportMovement>().DashTeleport = DashTeleport;
 
         player.GetComponent<VRCharacterController>().gravity = Gravity;
         player.GetComponent<VRCharacterController>().CheckIfGrounded = CheckForGround;

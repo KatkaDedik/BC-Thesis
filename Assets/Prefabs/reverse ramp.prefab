@@ -136,8 +136,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7968259420480068202}
   - component: {fileID: 7142819107047127979}
-  - component: {fileID: 876446441581901641}
   - component: {fileID: 9206907930817186379}
+  - component: {fileID: 2530694789868864354}
   m_Layer: 11
   m_Name: reverse ramp
   m_TagString: Untagged
@@ -177,27 +177,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.4476509, y: 0.47106132, z: 0.3140183}
   m_Center: {x: -0.043670394, y: 0.064063884, z: -0.12785728}
---- !u!114 &876446441581901641
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3918416999126023042}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f35adcdfd2709e54484c68b26eae9433, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isFloor: 0
-  isConvex: 0
-  GravityForce: -9.81
-  GravityOrientation: {x: 0, y: 0, z: 0}
-  freezeX: 0
-  freezeY: 1
-  freezeZ: 0
-  GravityHelper: {fileID: 2892011393572471750}
-  Center: {x: -0.2516, y: 0.272, z: 0}
 --- !u!114 &9206907930817186379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,7 +189,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ddd2d9543b66ac449a87c1d33b0599e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  atractor: {fileID: 876446441581901641}
+  AttractorGameObject: {fileID: 3918416999126023042}
+--- !u!114 &2530694789868864354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3918416999126023042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff9d895a3a0b7b7428122973568ccf33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DoNotMoveInAxis: 0
+  IsConvex: 1
+  GravityHelper: {fileID: 2892011393572471750}
 --- !u!1 &4414712867698931715
 GameObject:
   m_ObjectHideFlags: 0
@@ -400,7 +394,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ddd2d9543b66ac449a87c1d33b0599e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  atractor: {fileID: 0}
+  AttractorGameObject: {fileID: 0}
 --- !u!1 &6513613294564227709
 GameObject:
   m_ObjectHideFlags: 0
@@ -815,4 +809,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ddd2d9543b66ac449a87c1d33b0599e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  atractor: {fileID: 0}
+  AttractorGameObject: {fileID: 0}

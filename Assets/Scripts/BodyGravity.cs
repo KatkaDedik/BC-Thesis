@@ -5,12 +5,17 @@ using UnityEngine;
 
 public class BodyGravity : MonoBehaviour
 {
-
-    public GravityAtractor atractor;
+    public GameObject Attractor;
+    public IGravityAttractor attractor;
     public Transform groundCheck;
+
+    private void Start()
+    {
+        attractor = Attractor.GetComponent<IGravityAttractor>();
+    }
 
     void Update()
     {
-        transform.rotation = atractor.Attract(transform, groundCheck);
+        transform.rotation = attractor.Attract(transform, groundCheck);
     }
 }
