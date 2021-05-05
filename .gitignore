@@ -18,6 +18,7 @@
 !*.ad
 !*.shadergraph
 !*.prefab
+!*.lighting
 
 # blobs
 !*.png
