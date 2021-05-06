@@ -10874,11 +10874,11 @@ MonoBehaviour:
   BodyGravityScript: 1
   Attractor: {fileID: 1730268408207703075}
   JoystickMovementScript: 1
-  FlyMovementScript: 1
+  FlyMovementScript: 0
   PushAwayMovementScript: 0
   ZeroGravityMovementScript: 0
-  TeleportMovementScript: 0
-  TeleportType: 0
+  TeleportMovementScript: 1
+  TeleportType: 1
   Gravity: 9.82
   CheckForGround: 1
 --- !u!4 &1203591406

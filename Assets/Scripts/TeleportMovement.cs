@@ -170,7 +170,7 @@ public class TeleportMovement : MonoBehaviour
         isTeleporting = true;
 
         // Fade
-        SteamVR_Fade.Start(Color.black, fadeTime, true);
+        SteamVR_Fade.View(Color.black, fadeTime);
 
         //Apply translation
         yield return new WaitForSeconds(fadeTime);
@@ -178,7 +178,7 @@ public class TeleportMovement : MonoBehaviour
         area.ChangeAtractor(Player);
 
         // Fade to clear
-        SteamVR_Fade.Start(Color.clear, fadeTime, true);
+        SteamVR_Fade.View(Color.clear, fadeTime);
 
         //De-flag
         isTeleporting = false;
