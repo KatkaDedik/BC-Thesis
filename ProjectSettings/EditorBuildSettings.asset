@@ -18,6 +18,12 @@ EditorBuildSettings:
     path: Assets/Scenes/FadeTeleport.unity
     guid: 64ec8cb3fdd3d7d4da24aa3b30771b64
   - enabled: 1
+    path: Assets/Scenes/DashTeleport.unity
+    guid: fe4b1fb89121a4b46a1eab64bc855fea
+  - enabled: 1
+    path: Assets/Scenes/SupermanFly.unity
+    guid: b83e93d06d9a8f943a073b0ec686e98e
+  - enabled: 1
     path: Assets/Scenes/ZeroGravity.unity
     guid: 2b11a5fb857d7f345ad0c431bc093223
   m_configObjects: {}

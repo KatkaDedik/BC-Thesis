@@ -159,7 +159,7 @@ public class PushAwayMovement : MonoBehaviour
 
     private void PushAway()
     {
-        Vector3 currentPosition = positionsBuffer[bufferIndex % PositionBufferSize - 1];
+        Vector3 currentPosition = positionsBuffer[(bufferIndex - 1) % PositionBufferSize ];
         Vector3 oldestPosition;
         if(bufferIndex < PositionBufferSize)
         {
