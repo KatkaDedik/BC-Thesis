@@ -37,7 +37,7 @@ public class ZeroGravityMovement : MonoBehaviour
             Quaternion orientation = Quaternion.Euler(orientationEuler);
 
             //Move RotationHelper
-            RotationHelper.position = controller.groundCheck.position;
+            RotationHelper.position = controller.GroundCheck.position;
             pitch = controller.Head.localEulerAngles.x;
             if (pitch > 180)
             {

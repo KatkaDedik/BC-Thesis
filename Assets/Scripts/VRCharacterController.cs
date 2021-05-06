@@ -7,13 +7,12 @@ using UnityEngine.Rendering.PostProcessing;
 public class VRCharacterController : MonoBehaviour
 {
     public float StepOffset = 0.3f;
-    public float SkinWidth = 0.08f;
     public float gravity = 9.82f;
     public LayerMask WalkableLayer;
     public LayerMask PlayerLayer;
     public bool CheckIfGrounded = true;
     public Transform Head = null;
-    public Transform groundCheck = null;
+    public Transform GroundCheck = null;
     [HideInInspector]
     public bool collided = false;
     public PostProcessVolume PP;
@@ -64,11 +63,11 @@ public class VRCharacterController : MonoBehaviour
     {
         //Get the head in local space
         float headHeight = Mathf.Clamp(Head.localPosition.y, 0.3f, 2.2f);
-        capsuleCollider.height = headHeight + 0.2f;
+        capsuleCollider.height = headHeight + 0.1f;
 
         // Cut in half
         Vector3 newCenter = Vector3.zero;
-        newCenter.y = capsuleCollider.height / 2;
+        newCenter.y = capsuleCollider.height / 2 + 0.05f;
 
         //Move capsule in local space
         newCenter.x = Head.localPosition.x;
@@ -78,10 +77,7 @@ public class VRCharacterController : MonoBehaviour
         capsuleCollider.center = newCenter;
 
         liftPoint = new Vector3(newCenter.x, newCenter.y + headHeight / 2, newCenter.z);
-        GroundCheck = new Vector3(newCenter.x, newCenter.y - headHeight / 2 - 0.01f, newCenter.z);
-
-        newCenter.y = groundCheck.localPosition.y;
-        groundCheck.localPosition = newCenter;
+        GroundCheck.localPosition = new Vector3(newCenter.x, newCenter.y - headHeight / 2 - 0.01f, newCenter.z);
     }
 
     public void MovePlayer(Vector3 moveBy, bool usechromatic = true)
@@ -99,7 +95,6 @@ public class VRCharacterController : MonoBehaviour
     public float currentGravity;//{ get; set; }
     private Vector3 liftPoint;
     private RaycastHit groundHit;
-    private Vector3 GroundCheck;
     private Ray ray;
     private Vector3 downDirection;
 
@@ -117,8 +112,10 @@ public class VRCharacterController : MonoBehaviour
 
     public bool IsGrounded()
     {
-        downDirection = transform.TransformPoint(GroundCheck) - transform.TransformPoint(liftPoint);
+        downDirection = GroundCheck.position - transform.TransformPoint(liftPoint);
         ray = new Ray(transform.TransformPoint(liftPoint), downDirection);
+
+        Debug.DrawRay(transform.TransformPoint(liftPoint), downDirection);
 
         if (Physics.SphereCast(ray, 0.05f, out var tempHit, downDirection.magnitude + 0.05f, WalkableLayer))
         {
@@ -133,7 +130,7 @@ public class VRCharacterController : MonoBehaviour
     private bool IsGroundHit(RaycastHit tempHit)
     {
         Collider[] col = new Collider[6];
-        int num = Physics.OverlapSphereNonAlloc(transform.TransformPoint(GroundCheck), 0.5f, col, WalkableLayer);
+        int num = Physics.OverlapSphereNonAlloc(GroundCheck.position, 0.5f, col, WalkableLayer);
 
         var ret = false;
 

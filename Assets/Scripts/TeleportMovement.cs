@@ -27,6 +27,7 @@ public class TeleportMovement : MonoBehaviour
     // Fade teleport
     private float fadeTime = 0.5f;
     private TeleportArea area;
+    private Vector3 destination;
 
     //Dash teleport
     private float teleportTimer = 0f;
@@ -105,7 +106,9 @@ public class TeleportMovement : MonoBehaviour
         }
 
         //Figure out transition
+        destination = Pointer.transform.position;
         Vector3 translateVector = Pointer.transform.position - GroundCheck.position;
+        
 
         //Move
         switch (TeleportType)
@@ -176,6 +179,9 @@ public class TeleportMovement : MonoBehaviour
         yield return new WaitForSeconds(fadeTime);
         Player.transform.position += translation;
         area.ChangeAtractor(Player);
+        yield return new WaitForSeconds(fadeTime);
+        translation = destination - GroundCheck.position;
+        Player.transform.position += translation;
 
         // Fade to clear
         SteamVR_Fade.View(Color.clear, fadeTime);

@@ -2732,6 +2732,11 @@ PrefabInstance:
       propertyPath: hapticFlash.needsReinit
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7690896558779627745, guid: ca7bee5bf999d344281f2da230496aac,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7690896558789066423, guid: ca7bee5bf999d344281f2da230496aac,
         type: 3}
       propertyPath: m_RenderingPath
@@ -2952,7 +2957,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7690896558779627745, guid: ca7bee5bf999d344281f2da230496aac, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ca7bee5bf999d344281f2da230496aac, type: 3}
 --- !u!4 &729796224 stripped
 Transform:
@@ -4440,6 +4446,18 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!114 &1062890280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1062890278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ad1e469d4e3e04489f9a36419f1a4f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1062890282
 MonoBehaviour:
   m_ObjectHideFlags: 0
