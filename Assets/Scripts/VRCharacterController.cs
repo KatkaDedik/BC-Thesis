@@ -59,7 +59,7 @@ public class VRCharacterController : MonoBehaviour
         move = Vector3.zero;
     }
 
-    private void HandleHeight()
+    public void HandleHeight()
     {
         //Get the head in local space
         float headHeight = Mathf.Clamp(Head.localPosition.y, 0.3f, 2.2f);

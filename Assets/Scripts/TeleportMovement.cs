@@ -23,6 +23,8 @@ public class TeleportMovement : MonoBehaviour
     private SteamVR_Behaviour_Pose pose = null;
     private bool pointerHasPosition = false;
     private LineRenderer line;
+    private VRCharacterController controller;
+    private Vector3 GroundCheckOffset = Vector3.zero;
 
     // Fade teleport
     private float fadeTime = 0.5f;
@@ -44,6 +46,7 @@ public class TeleportMovement : MonoBehaviour
         pose = GetComponent<SteamVR_Behaviour_Pose>();
         Pointer.SetActive(false);
         line = GetComponent<LineRenderer>();
+        controller = Player.GetComponent<VRCharacterController>();
     }
 
     private void Update()
@@ -107,7 +110,7 @@ public class TeleportMovement : MonoBehaviour
 
         //Figure out transition
         destination = Pointer.transform.position;
-        Vector3 translateVector = Pointer.transform.position - GroundCheck.position;
+        Vector3 translateVector = GetDestination();
         
 
         //Move
@@ -132,10 +135,29 @@ public class TeleportMovement : MonoBehaviour
     private void SetStartEndTransform()
     {
         startPosition = Player.transform.position;
-        endPosition = Pointer.transform.position;
+        endPosition = Pointer.transform.position + GroundCheckOffset;
         startQuaternion = Player.transform.rotation;
         endQuaternion = area.attractor.Attract(Player.transform, GroundCheck);
         isTeleporting = true;
+    }
+
+    private Vector3 GetDestination()
+    {
+        //rotate the player to find the right Translate vector
+        Player.transform.rotation = area.attractor.Attract(Player.transform, GroundCheck);
+        controller.HandleHeight();
+        
+        // get the translate Vector 
+        Vector3 translateVector = Pointer.transform.position - GroundCheck.position;
+
+        //set ground check offset with this rotation
+        GroundCheckOffset = Player.transform.position - GroundCheck.transform.position;
+
+        //rotate the player back
+        Player.transform.rotation = Player.GetComponent<BodyGravity>().attractor.Attract(Player.transform, GroundCheck);
+        controller.HandleHeight();
+
+        return translateVector;
     }
 
     private IEnumerator DashTeleportPlayer()

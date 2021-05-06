@@ -11515,7 +11515,7 @@ PrefabInstance:
     - target: {fileID: 7221628579247733535, guid: ca7bee5bf999d344281f2da230496aac,
         type: 3}
       propertyPath: TeleportType
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7689896556773638281, guid: ca7bee5bf999d344281f2da230496aac,
         type: 3}

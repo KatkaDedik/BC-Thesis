@@ -11502,11 +11502,36 @@ PrefabInstance:
       propertyPath: Attractor
       value: 
       objectReference: {fileID: 472925010}
+    - target: {fileID: 4628793049656171500, guid: ca7bee5bf999d344281f2da230496aac,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7221628578822198056, guid: ca7bee5bf999d344281f2da230496aac,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7221628578822198059, guid: ca7bee5bf999d344281f2da230496aac,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7221628578822198060, guid: ca7bee5bf999d344281f2da230496aac,
         type: 3}
       propertyPath: PP
       value: 
       objectReference: {fileID: 1959405676}
+    - target: {fileID: 7221628578822198060, guid: ca7bee5bf999d344281f2da230496aac,
+        type: 3}
+      propertyPath: CheckIfGrounded
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7221628578822198060, guid: ca7bee5bf999d344281f2da230496aac,
+        type: 3}
+      propertyPath: gravity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7221628579247733535, guid: ca7bee5bf999d344281f2da230496aac,
         type: 3}
       propertyPath: m_Enabled
@@ -11515,7 +11540,7 @@ PrefabInstance:
     - target: {fileID: 7221628579247733535, guid: ca7bee5bf999d344281f2da230496aac,
         type: 3}
       propertyPath: TeleportType
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7689896556773638281, guid: ca7bee5bf999d344281f2da230496aac,
         type: 3}

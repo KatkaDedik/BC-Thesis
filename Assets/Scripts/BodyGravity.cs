@@ -14,7 +14,7 @@ public class BodyGravity : MonoBehaviour
         attractor = Attractor.GetComponent<IGravityAttractor>();
     }
 
-    void Update()
+    private void Update()
     {
         transform.rotation = attractor.Attract(transform, groundCheck);
     }
