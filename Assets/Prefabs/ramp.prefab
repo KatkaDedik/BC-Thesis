@@ -798,13 +798,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isFloor: 0
-  isReverse: 0
+  isConvex: 0
   GravityForce: -9.81
   GravityOrientation: {x: 0, y: 0, z: 0}
   freezeX: 1
   freezeY: 0
   freezeZ: 0
   GravityHelper: {fileID: 6717995550091043188}
+  Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6717995548651478829
 MonoBehaviour:
   m_ObjectHideFlags: 0
