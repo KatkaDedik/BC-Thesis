@@ -8,7 +8,7 @@ public class LoadScene : MonoBehaviour
 
     public string nextScene = "";
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         SceneManager.LoadScene(nextScene);
     }

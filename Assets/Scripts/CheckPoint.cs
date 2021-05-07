@@ -4,15 +4,46 @@ using UnityEngine;
 
 public class CheckPoint : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public CheckPoint NextCheckpoint;
+    public Material ActiveMaterial;
+
+    public bool IsActive = false;
+    public bool IsLast = false;
+    public LoadScene Load;
+
+    private void Start()
     {
+        if (IsActive)
+        {
+            GetComponent<Renderer>().material = ActiveMaterial;
+        }
+
+        if (Load != null)
+        {
+            Load.enabled = false;
+        }
         
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        
+
+        if (IsLast)
+        {
+            Load.enabled = true;
+        }
+        else
+        {
+            NextCheckpoint.Activate();
+        }
+
+        Destroy(this.gameObject, 0.1f);
     }
+
+    private void Activate()
+    {
+        IsActive = true;
+        GetComponent<Renderer>().material = ActiveMaterial;
+    }
+
 }
