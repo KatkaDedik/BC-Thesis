@@ -2227,6 +2227,7 @@ GameObject:
   - component: {fileID: 7221628578822198063}
   - component: {fileID: 7221628578822198056}
   - component: {fileID: 7221628578822198059}
+  - component: {fileID: 2466855435021983684}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -2434,6 +2435,21 @@ MonoBehaviour:
   Sensitivity: 0.1
   RotationHelper: {fileID: 5665791060061279752}
   pitch: 0
+--- !u!114 &2466855435021983684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1045940406806817214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d989115c4d950488294f9afc325709, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ResetAction:
+    actionPath: /actions/default/in/InteractUI
+    needsReinit: 0
 --- !u!1 &1045940406806818768
 GameObject:
   m_ObjectHideFlags: 0
@@ -2839,7 +2855,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_RenderPostProcessing: 0
-  m_Antialiasing: 0
+  m_Antialiasing: 1
   m_AntialiasingQuality: 2
   m_StopNaN: 0
   m_Dithering: 0

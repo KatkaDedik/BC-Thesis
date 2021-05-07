@@ -4195,6 +4195,11 @@ PrefabInstance:
       propertyPath: IsLast
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 745292258799759565, guid: de73958cd0ae48d4693c79b7144b03c8,
+        type: 3}
+      propertyPath: Load
+      value: 
+      objectReference: {fileID: 739259000}
     - target: {fileID: 919737418303343727, guid: de73958cd0ae48d4693c79b7144b03c8,
         type: 3}
       propertyPath: m_StaticEditorFlags

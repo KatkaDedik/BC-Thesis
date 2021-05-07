@@ -32,12 +32,11 @@ public class CheckPoint : MonoBehaviour
         {
             Load.enabled = true;
         }
-        else
+        else if(IsActive)
         {
             NextCheckpoint.Activate();
+            Destroy(this.gameObject, 0.1f);
         }
-
-        Destroy(this.gameObject, 0.1f);
     }
 
     private void Activate()

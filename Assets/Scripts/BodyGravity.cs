@@ -1,8 +1,11 @@
-﻿using Assets.Scripts;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// Handles player's orientation according to attractor
+/// </summary>
 public class BodyGravity : MonoBehaviour
 {
     public GameObject Attractor;

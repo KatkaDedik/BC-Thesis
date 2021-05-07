@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class LoadScene : MonoBehaviour
 {
-
     public string nextScene = "";
 
     private void OnTriggerStay(Collider other)

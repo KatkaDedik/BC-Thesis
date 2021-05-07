@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR;
-using Assets.Scripts;
 
 [RequireComponent(typeof(VRCharacterController))]
 public class FlyMovement : MonoBehaviour
