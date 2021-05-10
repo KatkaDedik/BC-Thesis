@@ -22,6 +22,8 @@ public class VRCharacterController : MonoBehaviour
     private Vector3 move;
     private CapsuleCollider capsuleCollider;
     public ChromaticAberration chromatic;
+    public bool ScaleCollider = false;
+    
 
     private void Start()
     {
@@ -63,11 +65,22 @@ public class VRCharacterController : MonoBehaviour
     {
         //Get the head in local space
         float headHeight = Mathf.Clamp(Head.localPosition.y, 0.3f, 2.2f);
+        
         capsuleCollider.height = headHeight + 0.1f;
 
         // Cut in half
         Vector3 newCenter = Vector3.zero;
         newCenter.y = capsuleCollider.height / 2 + 0.05f;
+
+        if (ScaleCollider)
+        {
+            capsuleCollider.height = 0.4f;
+            newCenter.y = headHeight + 0.1f;
+        }
+        else
+        {
+            newCenter.y = capsuleCollider.height / 2 + 0.05f;
+        }
 
         //Move capsule in local space
         newCenter.x = Head.localPosition.x;

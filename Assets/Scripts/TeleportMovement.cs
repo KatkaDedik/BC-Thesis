@@ -65,6 +65,10 @@ public class TeleportMovement : MonoBehaviour
     {
         if (!TeleportAction.GetState(pose.inputSource) && !TeleportAction.GetStateUp(pose.inputSource))
         {
+            if (area != null)
+            {
+                area.ChangeMaterial(0);
+            }
             Pointer.SetActive(false);
             return false;
         }
@@ -81,7 +85,14 @@ public class TeleportMovement : MonoBehaviour
 
             Pointer.SetActive(true);
             Pointer.transform.position = hit.point;
-            area = hit.collider.GetComponent<TeleportArea>();
+            var newArea = hit.collider.GetComponent<TeleportArea>();
+
+            if (newArea != area && area != null)
+            {
+                area.ChangeMaterial(0);
+                area = newArea;
+            }
+            area = newArea;
 
             if (area == null)
             {
@@ -91,6 +102,7 @@ public class TeleportMovement : MonoBehaviour
             }
             line.material.SetInt("Hit", 1);
             Pointer.GetComponent<MeshRenderer>().material = onHitMaterial;
+            area.ChangeMaterial(1);
             return true;
         }
 
