@@ -12,7 +12,7 @@ public class PushAwayMovement : MonoBehaviour
     /// <summary>
     /// Posibilities of holding
     /// </summary>
-    enum HandHoldingStatus { Left, None, Right};
+    enum HandHoldingStatus { Left, None, Right };
 
     public GameObject RightHand;
     public GameObject LeftHand;
@@ -56,9 +56,9 @@ public class PushAwayMovement : MonoBehaviour
             Movement();
         }
     }
-    
+
     private HandHoldingStatus IsAnchored()
-    { 
+    {
         if (status == HandHoldingStatus.None)
         {
             //check if right hand closed from last frame
@@ -73,7 +73,7 @@ public class PushAwayMovement : MonoBehaviour
                 return HandHoldingStatus.Left;
             }
         }
-        
+
         return StillHolding(status);
     }
 
@@ -85,11 +85,11 @@ public class PushAwayMovement : MonoBehaviour
     private HandHoldingStatus StillHolding(HandHoldingStatus status)
     {
 
-        if(!GetCompleteStatus(status, out var holdingHand, out var freeHand, out var otherHandStatus, out var otherHandTransform))
+        if (!GetCompleteStatus(status, out var holdingHand, out var freeHand, out var otherHandStatus, out var otherHandTransform))
         {
             return HandHoldingStatus.None;
         }
-        
+
         //if player still pressing action, do not change anything
         if (!HoldAction.GetStateUp(holdingHand))
         {
@@ -115,10 +115,10 @@ public class PushAwayMovement : MonoBehaviour
     /// Set the out parameters accoding to currectStatus
     /// </summary>
     /// <returns>false if setting out parameters went wrong</returns>
-    private bool GetCompleteStatus(HandHoldingStatus currentStatus, 
-        out SteamVR_Input_Sources holdingHand, 
-        out SteamVR_Input_Sources freeHand, 
-        out HandHoldingStatus otherHand, 
+    private bool GetCompleteStatus(HandHoldingStatus currentStatus,
+        out SteamVR_Input_Sources holdingHand,
+        out SteamVR_Input_Sources freeHand,
+        out HandHoldingStatus otherHand,
         out Transform otherHandTransform)
     {
         switch (status)
@@ -164,8 +164,8 @@ public class PushAwayMovement : MonoBehaviour
         }
         //the HoldAction on inputSorce was not pressed or the hand was not colliding with enithing
         return false;
-    } 
-    
+    }
+
     private bool LookForObjectToHold(Transform handTransform)
     {
         Collider[] colliders = Physics.OverlapSphere(handTransform.position, DistanceToHold, HoldMask);
@@ -179,7 +179,7 @@ public class PushAwayMovement : MonoBehaviour
     {
         positionsBuffer[bufferIndex % PositionBufferSize] = transform.position;
         bufferIndex++;
-        var handDeltaPosition =  holdingPosition - holdingHandTransform.position;
+        var handDeltaPosition = holdingPosition - holdingHandTransform.position;
         controller.MovePlayer(handDeltaPosition, false);
 
         if (bufferIndex > 6 * PositionBufferSize)
@@ -187,12 +187,12 @@ public class PushAwayMovement : MonoBehaviour
             bufferIndex -= 3 * PositionBufferSize;
         }
     }
-    
+
     private void PushAway()
     {
-        Vector3 currentPosition = positionsBuffer[(bufferIndex - 1) % PositionBufferSize ];
+        Vector3 currentPosition = positionsBuffer[(bufferIndex - 1) % PositionBufferSize];
         Vector3 oldestPosition;
-        if(bufferIndex < PositionBufferSize)
+        if (bufferIndex < PositionBufferSize)
         {
             oldestPosition = positionsBuffer[0];
         }
@@ -200,7 +200,7 @@ public class PushAwayMovement : MonoBehaviour
         {
             oldestPosition = positionsBuffer[bufferIndex % PositionBufferSize];
         }
-        
+
         velocityDirection = currentPosition - oldestPosition;
         speed = velocityDirection.magnitude * 10;
         velocityDirection.Normalize();
@@ -215,6 +215,6 @@ public class PushAwayMovement : MonoBehaviour
         }
         speed = Mathf.Clamp(speed - Time.deltaTime * Deceleration, 0, 50);
         var finalMove = velocityDirection * Time.deltaTime * speed;
-        controller.MovePlayer(finalMove, true );
+        controller.MovePlayer(finalMove, true);
     }
 }

@@ -15,7 +15,7 @@ public class ZeroGravityMovement : MonoBehaviour
     public float Sensitivity = 1;
     public Transform RotationHelper = null;
     public float pitch;
-    
+
     private Vector3 direction;
     private VRCharacterController controller;
     private float speed = 0f;
@@ -46,18 +46,18 @@ public class ZeroGravityMovement : MonoBehaviour
             //Debug.Log($"pitch = {pitch}");
             var rotation = Mathf.Clamp(pitch * RotationSpeed * Time.deltaTime, -RotationSpeed, RotationSpeed);
             RotationHelper.localPosition = new Vector3(RotationHelper.localPosition.x, RotationHelper.localPosition.y, RotationHelper.localPosition.z - rotation);
-            
+
             var axis = Mathf.Clamp(RocketMoveValue.axis.y, 0, 1);
             speed += axis * Sensitivity;
             energy -= Time.deltaTime * RocketMoveValue.axis.y;
             RotatePlayer();
-            direction = transform.rotation * orientation * Vector3.forward ;
+            direction = transform.rotation * orientation * Vector3.forward;
         }
         else
         {
             speed -= Deceleration * Time.deltaTime;
             energy += Time.deltaTime;
-            
+
         }
         if (controller.collided)
         {

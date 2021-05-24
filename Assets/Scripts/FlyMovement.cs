@@ -18,7 +18,7 @@ public class FlyMovement : MonoBehaviour
     public float MaxSpeed = 10f;
     public float Speed = 10f;
     public float MinDeceleration = 1f;
-    
+
     private VRCharacterController controller;
     private BodyGravity bodyGravity;
     private float currentRightPower = 0f;
@@ -43,7 +43,7 @@ public class FlyMovement : MonoBehaviour
     {
         SetDirection();
         HandleCharacterController();
-        if((direction * Time.deltaTime) != Vector3.zero)
+        if ((direction * Time.deltaTime) != Vector3.zero)
         {
             controller.MovePlayer(direction * Time.deltaTime);
         }
@@ -88,7 +88,7 @@ public class FlyMovement : MonoBehaviour
     private float GetPowerInHand(SteamVR_Input_Sources source, float power)
     {
         float currentPower = power;
-        if(SpeedAction.GetAxis(source) > 0)
+        if (SpeedAction.GetAxis(source) > 0)
         {
             currentPower += SpeedAction.GetAxis(source) * Speed * Time.deltaTime;
         }

@@ -6,7 +6,7 @@ using Valve.VR;
 [RequireComponent(typeof(LineRenderer))]
 public class TeleportMovement : MonoBehaviour
 {
-    public enum Type { Dash, Fade};
+    public enum Type { Dash, Fade };
     public Type TeleportType = Type.Dash;
 
     public GameObject Player;
@@ -76,7 +76,7 @@ public class TeleportMovement : MonoBehaviour
         // Ray from the controller
         Ray ray = new Ray(transform.position, transform.forward);
         // if it is a hit
-        if (Physics.Raycast(ray,out var hit, 42, ~IgnoreMask))
+        if (Physics.Raycast(ray, out var hit, 42, ~IgnoreMask))
         {
             line.enabled = true;
             line.positionCount = 2;
@@ -114,7 +114,7 @@ public class TeleportMovement : MonoBehaviour
     private void TryTeleport()
     {
         //Check for valid position, and if already teleporting;
-        if(!pointerHasPosition || isTeleporting)
+        if (!pointerHasPosition || isTeleporting)
         {
             return;
         }
@@ -122,7 +122,7 @@ public class TeleportMovement : MonoBehaviour
         //Figure out transition
         destination = Pointer.transform.position;
         Vector3 translateVector = GetDestination();
-        
+
 
         //Move
         switch (TeleportType)
@@ -140,7 +140,7 @@ public class TeleportMovement : MonoBehaviour
             default:
                 break;
         }
-        
+
     }
 
     private void SetStartEndTransform()
@@ -157,7 +157,7 @@ public class TeleportMovement : MonoBehaviour
         //rotate the player to find the right Translate vector
         Player.transform.rotation = area.attractor.Attract(Player.transform, GroundCheck);
         controller.HandleHeight();
-        
+
         // get the translate Vector 
         Vector3 translateVector = Pointer.transform.position - GroundCheck.position;
 
