@@ -2494,7 +2494,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 030d6244fe6f70a4194753affd5486d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: SupermanFly
+  NextScene: SupermanFly
 --- !u!65 &594059176
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4356,6 +4356,7 @@ MonoBehaviour:
   ChromaticStrenght: 30
   currentChromaticStrenght: 0
   chromatic: {fileID: 0}
+  ScaleCollider: 0
   grounded: 0
   currentGravity: 0
 --- !u!114 &989237561
@@ -4509,7 +4510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 030d6244fe6f70a4194753affd5486d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: DashTeleport
+  NextScene: DashTeleport
 --- !u!65 &1040375202
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5118,7 +5119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 030d6244fe6f70a4194753affd5486d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: ZeroGravity
+  NextScene: ZeroGravity
 --- !u!65 &1250567744
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7666,7 +7667,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 030d6244fe6f70a4194753affd5486d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: Ramp
+  NextScene: Ramp
 --- !u!65 &2016718087
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7965,7 +7966,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 030d6244fe6f70a4194753affd5486d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: FadeTeleport
+  NextScene: FadeTeleport
 --- !u!65 &2047492219
 BoxCollider:
   m_ObjectHideFlags: 0

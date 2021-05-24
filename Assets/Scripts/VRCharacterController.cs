@@ -28,7 +28,6 @@ public class VRCharacterController : MonoBehaviour
     private void Start()
     {
         capsuleCollider = GetComponent<CapsuleCollider>();
-        //GameMaster.GetComponent<UnityEngine.Rendering.Volume>().profile.TryGet(out chromatic);
         PP.profile.TryGetSettings(out chromatic);
     }
 

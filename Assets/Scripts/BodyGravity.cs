@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 /// <summary>
-/// Handles player's orientation according to attractor
+/// Handles player's rotation according to attractor
 /// </summary>
 public class BodyGravity : MonoBehaviour
 {

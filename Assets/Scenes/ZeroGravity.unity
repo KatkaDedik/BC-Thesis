@@ -4657,7 +4657,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 030d6244fe6f70a4194753affd5486d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: StartRoom
+  NextScene: StartRoom
 --- !u!114 &739259001 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 745292258799759565, guid: de73958cd0ae48d4693c79b7144b03c8,
@@ -9551,6 +9551,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 756591784}
     m_Modifications:
+    - target: {fileID: 1092695386374620102, guid: d534808d81e967540a873943eccfe58c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1134172910996604309, guid: d534808d81e967540a873943eccfe58c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 3917790116500155472, guid: d534808d81e967540a873943eccfe58c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9625,6 +9635,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: exit
+      objectReference: {fileID: 0}
+    - target: {fileID: 4401452755650574058, guid: d534808d81e967540a873943eccfe58c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d534808d81e967540a873943eccfe58c, type: 3}

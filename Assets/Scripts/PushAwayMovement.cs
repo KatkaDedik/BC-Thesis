@@ -3,20 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR;
 
+/// <summary>
+/// Script for push away movement
+/// </summary>
 [RequireComponent(typeof(VRCharacterController))]
 public class PushAwayMovement : MonoBehaviour
 {
+    /// <summary>
+    /// Posibilities of holding
+    /// </summary>
     enum HandHoldingStatus { Left, None, Right};
 
     public GameObject RightHand;
     public GameObject LeftHand;
     public SteamVR_Action_Boolean HoldAction;
+    /// <summary>
+    /// radius of a sphere around hand for detecting a collisions with objects that the player could hold
+    /// </summary>
     public float DistanceToHold = 0.15f;
     public LayerMask HoldMask;
     public int PositionBufferSize = 24;
     public float Deceleration = 0.2f;
 
     private VRCharacterController controller;
+    /// <summary>
+    /// Which hand is currently holding onto something
+    /// </summary>
     private HandHoldingStatus status;
     private Vector3 holdingPosition;
     private Transform holdingHandTransform;
@@ -44,7 +56,7 @@ public class PushAwayMovement : MonoBehaviour
             Movement();
         }
     }
-
+    
     private HandHoldingStatus IsAnchored()
     { 
         if (status == HandHoldingStatus.None)
@@ -65,6 +77,11 @@ public class PushAwayMovement : MonoBehaviour
         return StillHolding(status);
     }
 
+    /// <summary>
+    /// Check if the player is still holding something
+    /// </summary>
+    /// <param name="status">which hand was holding something last frame</param>
+    /// <returns>hand that currently holds onto something</returns>
     private HandHoldingStatus StillHolding(HandHoldingStatus status)
     {
 
@@ -94,6 +111,10 @@ public class PushAwayMovement : MonoBehaviour
         return HandHoldingStatus.None;
     }
 
+    /// <summary>
+    /// Set the out parameters accoding to currectStatus
+    /// </summary>
+    /// <returns>false if setting out parameters went wrong</returns>
     private bool GetCompleteStatus(HandHoldingStatus currentStatus, 
         out SteamVR_Input_Sources holdingHand, 
         out SteamVR_Input_Sources freeHand, 
@@ -124,6 +145,12 @@ public class PushAwayMovement : MonoBehaviour
         return true;
     }
 
+    /// <summary>
+    /// check if specific started holding onto something
+    /// </summary>
+    /// <param name="inputSource">input of specific hand</param>
+    /// <param name="hand">trasform of specific hand</param>
+    /// <returns>true if the inputSource is pressed and hand collided with HoldMask layer</returns>
     private bool StartedHolding(SteamVR_Input_Sources inputSource, Transform hand)
     {
         if (HoldAction.GetStateDown(inputSource))
@@ -135,9 +162,10 @@ public class PushAwayMovement : MonoBehaviour
                 return true;
             }
         }
+        //the HoldAction on inputSorce was not pressed or the hand was not colliding with enithing
         return false;
     } 
-
+    
     private bool LookForObjectToHold(Transform handTransform)
     {
         Collider[] colliders = Physics.OverlapSphere(handTransform.position, DistanceToHold, HoldMask);

@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Switch the IGravityAttractor in Bodygravity by 
+/// colliding when the player collides with trigger
+/// </summary>
 public class GravityTrigger : MonoBehaviour
 {
     public GameObject AttractorGameObject;
@@ -20,24 +24,6 @@ public class GravityTrigger : MonoBehaviour
         if (other.tag == "GroundCheck")
         {
             player.GetComponent<BodyGravity>().attractor = attractor;
-        }
-    }
-
-    
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "GroundCheck")
-        {
-            player.GetComponent<BodyGravity>().attractor = attractor;
-            Debug.Log($"enter {this.gameObject.name}");
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "GroundCheck")
-        {
-            Debug.Log($"left {this.gameObject.name}");
         }
     }
 }
