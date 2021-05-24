@@ -172,6 +172,9 @@ public class PushAwayMovement : MonoBehaviour
         return colliders.Length > 0;
     }
 
+    /// <summary>
+    /// move the player according to holding hand displacement
+    /// </summary>
     private void AnchoredMovement()
     {
         positionsBuffer[bufferIndex % PositionBufferSize] = transform.position;
@@ -184,7 +187,7 @@ public class PushAwayMovement : MonoBehaviour
             bufferIndex -= 3 * PositionBufferSize;
         }
     }
-
+    
     private void PushAway()
     {
         Vector3 currentPosition = positionsBuffer[(bufferIndex - 1) % PositionBufferSize ];

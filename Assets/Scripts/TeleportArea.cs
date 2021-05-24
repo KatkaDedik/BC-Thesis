@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// area where the player can teleport
+/// </summary>
 [RequireComponent(typeof(MeshRenderer))]
 public class TeleportArea : MonoBehaviour
 {

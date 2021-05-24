@@ -1,9 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Valve.VR;
-using Valve.VR.InteractionSystem;
 
+/// <summary>
+/// Basic joystic movement that calculates the player's movement accordig to headset rotation and the
+/// pressing position on trackpad.
+/// </summary>
 [RequireComponent(typeof(VRCharacterController))]
 public class JoystickMovement : MonoBehaviour
 {
@@ -27,6 +28,7 @@ public class JoystickMovement : MonoBehaviour
         Vector3 orientationEuler = new Vector3(0.0f, controller.Head.localEulerAngles.y, 0.0f);
         Quaternion orientation = Quaternion.Euler(orientationEuler);
 
+        //stop the movement if the JoystickMovePress is no longer pressed
         if (JoystickMovePress.GetStateUp(SteamVR_Input_Sources.Any))
         {
             speed = 0;

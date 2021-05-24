@@ -54,7 +54,7 @@ public class VRCharacterController : MonoBehaviour
     {
         ApplyGravity();
     }
-
+    
     private void LateUpdate()
     { 
         move = Vector3.zero;
