@@ -11,7 +11,7 @@ using UnityEngine.SceneManagement;
 public class BackToStartScene : MonoBehaviour
 {
     public SteamVR_Action_Boolean ResetAction;
-    
+
     void Update()
     {
         if (ResetAction.GetState(SteamVR_Input_Sources.RightHand)

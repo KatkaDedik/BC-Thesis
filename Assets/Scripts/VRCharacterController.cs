@@ -23,7 +23,7 @@ public class VRCharacterController : MonoBehaviour
     private CapsuleCollider capsuleCollider;
     public ChromaticAberration chromatic;
     public bool ScaleCollider = false;
-    
+
 
     private void Start()
     {
@@ -35,7 +35,7 @@ public class VRCharacterController : MonoBehaviour
     {
         HandleHeight();
         MovePlayer(downDirection * currentGravity * Time.deltaTime);
-        chromatic.intensity.Override( currentChromaticStrenght * ChromaticStrenght);
+        chromatic.intensity.Override(currentChromaticStrenght * ChromaticStrenght);
         currentChromaticStrenght = 0f;
         transform.position += move;
         CollisionCheck();
@@ -47,16 +47,16 @@ public class VRCharacterController : MonoBehaviour
         {
             grounded = false;
         }
-        
+
     }
 
     private void FixedUpdate()
     {
         ApplyGravity();
     }
-    
+
     private void LateUpdate()
-    { 
+    {
         move = Vector3.zero;
     }
 
@@ -64,7 +64,7 @@ public class VRCharacterController : MonoBehaviour
     {
         //Get the head in local space
         float headHeight = Mathf.Clamp(Head.localPosition.y, 0.3f, 2.2f);
-        
+
         capsuleCollider.height = headHeight + 0.1f;
 
         // Cut in half
@@ -100,7 +100,7 @@ public class VRCharacterController : MonoBehaviour
         }
         move += moveBy;
     }
-    
+
     #region Gravity methods
     //[HideInInspector]
     public bool grounded;
@@ -153,7 +153,7 @@ public class VRCharacterController : MonoBehaviour
                 groundHit = tempHit;
                 ret = true;
 
-                Vector3 Translate =  (downDirection * -1).normalized * (downDirection.magnitude - (groundHit.point - transform.TransformPoint(liftPoint)).magnitude);
+                Vector3 Translate = (downDirection * -1).normalized * (downDirection.magnitude - (groundHit.point - transform.TransformPoint(liftPoint)).magnitude);
 
                 transform.position += Translate;
                 break;
@@ -165,8 +165,8 @@ public class VRCharacterController : MonoBehaviour
             if (col[0] != null)
             {
                 RaycastHit hit;
-                if(Physics.Raycast(ray, out hit, 2f, WalkableLayer))
-                { 
+                if (Physics.Raycast(ray, out hit, 2f, WalkableLayer))
+                {
                     if (hit.transform != col[0].transform)
                     {
                         ret = false;
@@ -197,7 +197,7 @@ public class VRCharacterController : MonoBehaviour
             overlaps,
             ~PlayerLayer,
             QueryTriggerInteraction.UseGlobal);
-        
+
         for (int i = 0; i < num; i++)
         {
             if (overlaps[i].isTrigger)
@@ -208,7 +208,7 @@ public class VRCharacterController : MonoBehaviour
             Vector3 direction;
             float distance;
 
-            if (Physics.ComputePenetration(capsuleCollider, transform.position, transform.rotation, 
+            if (Physics.ComputePenetration(capsuleCollider, transform.position, transform.rotation,
                 overlaps[i], t.position, t.rotation, out direction, out distance))
             {
                 collided = true;

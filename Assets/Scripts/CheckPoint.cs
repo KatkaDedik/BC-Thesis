@@ -30,9 +30,9 @@ public class CheckPoint : MonoBehaviour
         {
             Load.enabled = false;
         }
-        
+
     }
-    
+
     private void OnTriggerEnter(Collider other)
     {
 
@@ -40,7 +40,7 @@ public class CheckPoint : MonoBehaviour
         {
             Load.enabled = true;
         }
-        else if(IsActive)
+        else if (IsActive)
         {
             NextCheckpoint.Activate();
             Destroy(this.gameObject, 0.1f);
